@@ -1,0 +1,24 @@
+# Large embedded skill codebases — not suitable for git
+claude/skills/gstack/
+claude/skills/ostack/
+
+# Claude Code runtime state — machine-specific or ephemeral
+claude/cache/
+claude/sessions/
+claude/backups/
+claude/debug/
+claude/downloads/
+claude/file-history/
+claude/ide/
+claude/shell-snapshots/
+claude/telemetry/
+claude/usage-data/
+claude/projects/
+claude/session-env/
+claude/plans/
+claude/mcp-needs-auth-cache.json
+claude/vercel-plugin-device-id
+claude/vercel-plugin-telemetry-preference
+
+# macOS
+.DS_Store

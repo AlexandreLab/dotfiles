@@ -1,0 +1,148 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/alexandrecanet/Documents/01_Code/gosip/docs -name *.md -type f)",
+      "Read(//Users/alexandrecanet/.claude/commands/**)",
+      "Read(//Users/alexandrecanet/.claude/**)",
+      "Bash(xargs sed:*)",
+      "Bash(node -e \"console.log\\(require\\(''./node_modules/@playwright/test/package.json''\\).version\\)\")",
+      "Bash(git pull:*)",
+      "Skill(cso)",
+      "Skill(cso:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git reset:*)",
+      "Bash(gh pr:*)",
+      "Bash(~/.claude/skills/ostack/bin/ostack-config list:*)",
+      "Read(//Users/alexandrecanet/.ostack/**)",
+      "Bash(find ~/.ostack -name *.json -o -name config*)",
+      "Bash(~/.claude/skills/ostack/bin/ostack-config set:*)",
+      "Bash(~/.claude/skills/ostack/bin/ostack-config get:*)",
+      "Skill(gstack-upgrade)",
+      "Skill(gstack-upgrade:*)",
+      "Bash(find /Users/alexandrecanet/.agents/skills -iname *vercel* -o -iname *deploy*)",
+      "Read(//Users/alexandrecanet/.gstack/**)",
+      "Read(//Users/alexandrecanet/.gstack/projects/**)",
+      "Skill(setup-deploy)",
+      "Skill(setup-deploy:*)",
+      "Bash(npm --version)",
+      "Bash(npm i:*)",
+      "Bash(vercel --version)",
+      "Skill(investigate)",
+      "Skill(investigate:*)",
+      "Bash(head -5 grep \"INSERT INTO.*business_sector\" /Users/alexandrecanet/Documents/01_Code/gosip/supabase/migrations/*.sql)",
+      "Bash(supabase link:*)",
+      "Bash(supabase login:*)",
+      "Bash(head -5 src/app/pulse-check/[token]/loading.tsx)",
+      "Bash(cat src/app/pulse-check/[token]/loading.tsx)",
+      "Bash(grep -n \"bg-cream\\\\|text-charcoal\\\\|text-stone-warm\\\\|text-stone-muted\\\\|border-stone-light\\\\|bg-sage\\\\|text-sage\\\\|font-serif\\\\|rounded-2xl\\\\|rounded-xl\\\\|bg-white\" src/app/admin/dry-run/page.tsx src/app/admin/matches/page.tsx src/app/admin/members/page.tsx src/app/admin/feedback/page.tsx src/app/admin/email-previews/page.tsx src/components/admin/InteractiveMatchesTable.tsx src/app/admin/members/[userId]/page.tsx)",
+      "Bash(perl -pi -e ':*)",
+      "Bash(git restore:*)",
+      "Bash(grep -v \"^\\\\s*$\")",
+      "Bash(grep -c \"bg-cream\\\\|text-charcoal\\\\|text-stone-warm\\\\|text-stone-muted\\\\|border-stone-light\\\\|bg-sage\\\\|text-sage\\\\|font-serif\" src/app/admin/members/[userId]/page.tsx src/app/privacy-policy/page.tsx src/app/terms/page.tsx)",
+      "Bash(git merge:*)",
+      "Bash(cat .eslintrc* .eslintrc.json .eslintrc.js)",
+      "Bash(npx next:*)",
+      "Bash(echo $?)",
+      "Bash(grep -v '^master$')",
+      "Bash(git diff-tree:*)",
+      "Bash(ls -la /Users/alexandrecanet/Documents/01_Code/gosip/.env*)",
+      "WebFetch(domain:hackernoon.com)",
+      "WebFetch(domain:docs.stripe.com)",
+      "Bash(find /Users/alexandrecanet/Documents/01_Code/gosip/src -name *stripe* -type f)",
+      "Bash(node -e \"console.log\\(require\\(''stripe/package.json''\\).version\\)\")",
+      "Bash(git status:*)",
+      "Bash(git rm:*)",
+      "Skill(design-consultation)",
+      "Skill(design-consultation:*)",
+      "Bash(wc -l CLAUDE.md .agent/*.md .agent/workflows/*.md docs/*.md)",
+      "Bash(ls *.md)",
+      "Bash(uv run:*)",
+      "Bash(cat /Users/alexandrecanet/Documents/01_Code/Loste_antigravity/tests/*.py)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(git checkout:*)",
+      "Bash(uv sync:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(ls -la /Users/alexandrecanet/Documents/01_Code/Loste_antigravity/.env*)",
+      "WebFetch(domain:shopify.dev)",
+      "WebFetch(domain:help.shopify.com)",
+      "Bash(uv add:*)",
+      "Bash(curl -s http://localhost:8765/health)",
+      "Bash(curl -s http://localhost:8765/api/v1/sync/status)",
+      "Bash(kill %1)",
+      "Bash(git commit -m 'fix\\(mc\\): update profit_engine test patches to time_utils._now_utc after extraction refactor:*)",
+      "Bash(wc -l /Users/alexandrecanet/Documents/01_Code/gosip/src/components/landing/*.tsx)",
+      "Bash(du -sh /Users/alexandrecanet/Documents/01_Code/gosip/public/images/landing/*.webp /Users/alexandrecanet/Documents/01_Code/gosip/public/images/landing/*.png)",
+      "Bash(du -sh /Users/alexandrecanet/Documents/01_Code/gosip/public/*.webp /Users/alexandrecanet/Documents/01_Code/gosip/public/*.png)",
+      "Bash(du -sh /Users/alexandrecanet/Documents/01_Code/gosip/node_modules/.*)",
+      "Bash(python3 -c \"import plotly; print\\(plotly.__version__\\)\")",
+      "Bash(python3 -c \"import jinja2; print\\(jinja2.__version__\\)\")",
+      "Bash(python3 -c \"import aiosqlite; help\\(aiosqlite.Connection.execute_fetchall\\)\")",
+      "Bash(python3 -c \"import inspect, aiosqlite; print\\([m for m in dir\\(aiosqlite.Connection\\) if 'fetchall' in m.lower\\(\\)]\\)\")",
+      "Read(//dev/**)",
+      "Bash(find /Users/alexandrecanet/Documents/01_Code/Loste_antigravity -name \"schema.sql\" -exec cat {} \\\\;)",
+      "Bash(python3 -c ':*)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(wait)",
+      "Bash(echo \"SERVER_PID=$!\")",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/)",
+      "Bash(python -c \"import starlette; print\\(starlette.__version__\\)\")",
+      "Bash(grep -n \"| safe\" /Users/alexandrecanet/Documents/01_Code/Loste_antigravity/loste_mission_control/templates/dashboard.html /Users/alexandrecanet/Documents/01_Code/Loste_antigravity/loste_mission_control/templates/macros/*.html)",
+      "Bash(grep -v \"^$\")",
+      "Bash(git push:*)",
+      "Read(//Users/alexandrecanet/.claude/skills/writing-plans/**)",
+      "Read(//Users/alexandrecanet/.agents/skills/writing-plans/**)",
+      "Read(//Users/alexandrecanet/.agents/superpowers/skills/writing-plans//**)",
+      "Read(//Users/alexandrecanet/.agents/superpowers/skills/writing-plans/**)",
+      "Bash(git fetch:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(list\\(d.keys\\(\\)\\)\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); d2={k:v for k,v in d.items\\(\\) if k not in ['permissions']}; print\\(json.dumps\\(d2, indent=2\\)\\)\")",
+      "Read(//Users/alexandrecanet/.agents/skills/applying-engineering-standards/**)",
+      "Bash(du -sh /Users/alexandrecanet/.claude/skills/*)",
+      "Bash(mv ~/.claude/CLAUDE.md ~/dotfiles/claude/CLAUDE.md)",
+      "Bash(mv ~/.claude/workspace-efficiency-guide.md ~/dotfiles/claude/workspace-efficiency-guide.md)",
+      "Bash(cp ~/.claude/settings.json ~/dotfiles/claude/settings.json)"
+    ],
+    "additionalDirectories": [
+      "/Users/alexandrecanet/.claude/commands",
+      "/private/tmp/gosip-agent-routing",
+      "/Users/alexandrecanet/Documents/01_Code/Loste_antigravity/loste_mission_control",
+      "/Users/alexandrecanet/.claude",
+      "/Users/alexandrecanet/dotfiles"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'WORKSPACE=$(pwd); MARKER=\"/tmp/.devcontainer-reminded-$(echo \"$WORKSPACE\" | md5 -q 2>/dev/null || echo \"$WORKSPACE\" | md5sum | cut -c1-8)\"; if [ -d \"$WORKSPACE/.git\" ] && [ ! -d \"$WORKSPACE/.devcontainer\" ] && [ ! -f \"$MARKER\" ]; then touch \"$MARKER\"; echo \"[devcontainer-reminder] This workspace has no .devcontainer/ setup. Mention once (briefly, inline — not as a separate section) that the user could use the creating-devcontainer skill to sandbox this workspace and run the AI agent with elevated permissions safely. Then proceed with the user request normally.\"; fi'"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "vercel-plugin@vercel-vercel-plugin": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "vercel-vercel-plugin": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/alexandrecanet/.cache/plugins/github.com-vercel-vercel-plugin"
+      }
+    }
+  },
+  "effortLevel": "high"
+}
