@@ -31,3 +31,15 @@ GitHub then merges when checks pass — no further monitoring needed.
 **Verify branch before every commit.** Run `git branch --show-current` before committing. If on the wrong branch, stop and ask rather than committing and cherry-picking later.
 
 **Run the full test suite before creating a PR.** When fixing copy or UI text, also check that test locators and assertions still match the updated strings. A passing local suite catches issues before CI does.
+
+## Subagent model selection
+
+When dispatching subagents (via the Agent tool or `subagent-driven-development` skill), choose model by task complexity:
+
+| Task type | Model |
+|---|---|
+| Mechanical: isolated function, clear spec, 1–2 files | Haiku (cheapest) |
+| Integration: multi-file coordination, pattern matching, debugging | Sonnet |
+| Architecture, design decisions, review | Opus (most capable) |
+
+When in doubt: if the plan is fully specified and the task touches ≤2 files → Haiku. If it requires judgment across the codebase → Sonnet. If it's a review or ADR → Opus.
