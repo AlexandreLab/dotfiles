@@ -22,3 +22,4 @@ claude/vercel-plugin-telemetry-preference
 
 # macOS
 .DS_Store
+.sync.log
