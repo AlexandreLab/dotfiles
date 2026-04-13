@@ -50,7 +50,21 @@ for entry in "${LINKS[@]}"; do
 done
 
 echo ""
-echo "Done. Verify with: ls -la ~/.claude/"
+
+# Register the launchd auto-sync job
+PLIST_SRC="$DOTFILES_DIR/com.alexandrecanet.dotfiles-sync.plist"
+PLIST_DST="$HOME/Library/LaunchAgents/com.alexandrecanet.dotfiles-sync.plist"
+
+if [ -f "$PLIST_SRC" ]; then
+  cp "$PLIST_SRC" "$PLIST_DST"
+  launchctl load "$PLIST_DST" 2>/dev/null && \
+    echo "✓ launchd sync job registered (runs daily at 18:00)" || \
+    echo "⚠ launchd load failed — run manually: launchctl load $PLIST_DST"
+fi
+
 echo ""
-echo "Note: ~/.claude/skills/gstack/ and gstack/ostack/ are large binary skills"
+echo "Done. Verify with: ls -la ~/.claude/"
+echo "Auto-sync log: ~/dotfiles/.sync.log"
+echo ""
+echo "Note: ~/.claude/skills/gstack/ and ostack/ are large binary skills"
 echo "excluded from this repo. Reinstall them separately if needed."
