@@ -40,6 +40,6 @@ When dispatching subagents (via the Agent tool or `subagent-driven-development` 
 |---|---|
 | Mechanical: isolated function, clear spec, 1–2 files | Haiku (cheapest) |
 | Integration: multi-file coordination, pattern matching, debugging | Sonnet |
-| Architecture, design decisions, review | Opus (most capable) |
+| Architecture, design decisions, review | Opus — `claude-opus-4-7` |
 
 When in doubt: if the plan is fully specified and the task touches ≤2 files → Haiku. If it requires judgment across the codebase → Sonnet. If it's a review or ADR → Opus.
