@@ -1,45 +1,23 @@
-# Global Engineering Habits
+# Claude Instructions (Global)
+
+See [`~/agents-shared/AGENTS.md`](../agents-shared/AGENTS.md) for canonical engineering rules — they apply to every project and every AI agent.
+
+This file holds Claude-only extras that other tools can't honor.
 
 ## Skills to apply
 
-- Before writing more than ~20 lines of code, consult `applying-engineering-standards`
-- Before any code review request, apply the 4-gate review framework from `applying-engineering-standards`
-- When working with Stripe (payments, subscriptions, webhooks), consult `stripe-best-practices`
+- Before writing more than ~20 lines of code, consult `applying-engineering-standards`.
+- Before any code review request, apply the 4-gate review framework from `applying-engineering-standards`.
+- Before opening or approving a PR on files touching billing, auth, webhooks, or migrations, run `gstack-review`.
+- When working with Stripe (payments, subscriptions, webhooks), consult `stripe-best-practices`.
+- When starting a new project that will be worked on by multiple agents, run `multi-agent-setup`.
 
-## Pre-merge checklist
-Before opening or approving a PR on any project, suggest running `gstack-review`
-(paranoid staff engineer mode) on any files changed in high-risk areas:
-billing, auth, webhooks, database migrations.
+## Subagent model IDs
 
-## Fix discipline
+The general ladder lives in `AGENTS.md`. Concrete Claude model IDs:
 
-**Grep for siblings before declaring a fix done.** After fixing any bug, search the entire codebase for the same pattern and fix ALL instances in one commit. A single-instance fix that misses a sibling is an incomplete fix. Applies to: assertion strings, env var names, display transformations, copy strings, and API method calls.
-
-**Never poll CI in-chat.** Do not loop on `gh pr checks` or `gh run watch` interactively — it drains quota and hits rate limits.
-
-**Auto-merge is mandatory when creating PRs.** After every `gh pr create`, immediately run `gh pr merge <number> --auto --squash` in the same step — never as a follow-up. The full sequence is always:
-```bash
-gh pr create --title "..." --body "..."  # capture the PR number from output
-gh pr merge <number> --auto --squash      # set auto-merge immediately
-```
-GitHub then merges when checks pass — no further monitoring needed.
-
-## Scope discipline
-
-**Never touch TODOS.md, CLAUDE.md, CHANGELOG.md, or other project-management files unless explicitly asked.** Keep commits scoped to the task at hand. If you notice something worth logging, mention it in chat — don't write it yourself.
-
-**Verify branch before every commit.** Run `git branch --show-current` before committing. If on the wrong branch, stop and ask rather than committing and cherry-picking later.
-
-**Run the full test suite before creating a PR.** When fixing copy or UI text, also check that test locators and assertions still match the updated strings. A passing local suite catches issues before CI does.
-
-## Subagent model selection
-
-When dispatching subagents (via the Agent tool or `subagent-driven-development` skill), choose model by task complexity:
-
-| Task type | Model |
+| Tier | Model ID |
 |---|---|
-| Mechanical: isolated function, clear spec, 1–2 files | Haiku (cheapest) |
-| Integration: multi-file coordination, pattern matching, debugging | Sonnet |
-| Architecture, design decisions, review | Opus — `claude-opus-4-7` |
-
-When in doubt: if the plan is fully specified and the task touches ≤2 files → Haiku. If it requires judgment across the codebase → Sonnet. If it's a review or ADR → Opus.
+| Cheapest (mechanical) | `claude-haiku-4-5-20251001` |
+| Mid (integration / debugging) | `claude-sonnet-4-6` |
+| Top (architecture / review) | `claude-opus-4-7` |
