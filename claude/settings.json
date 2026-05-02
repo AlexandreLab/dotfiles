@@ -1,5 +1,4 @@
 {
-  "model": "claude-opus-4-7",
   "permissions": {
     "allow": [
       "Bash(git *)",
@@ -62,6 +61,7 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
+  "model": "claude-opus-4-7",
   "hooks": {
     "Stop": [
       {
@@ -86,7 +86,8 @@
   },
   "enabledPlugins": {
     "context7@claude-plugins-official": true,
-    "vercel-plugin@vercel-vercel-plugin": true
+    "vercel-plugin@vercel-vercel-plugin": true,
+    "claude-mem@thedotmack": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -99,6 +100,12 @@
       "source": {
         "source": "directory",
         "path": "/Users/alexandrecanet/.cache/plugins/github.com-vercel-vercel-plugin"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
       }
     }
   },
