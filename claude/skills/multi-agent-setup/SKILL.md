@@ -77,10 +77,26 @@ Use this template. Fill in placeholders from the project's existing CLAUDE.md / 
 - **What this is:** <one-line description>
 - **Stack:** <languages, frameworks, package manager>
 - **Run/test:** <how to start the dev server, run tests>
+- **Production branch / deploy target:** <e.g. master on Vercel — auto-deploys>
 
 ## Engineering rules
 - Inherit global rules from `~/agents-shared/AGENTS.md`.
 - <project-specific overrides go here>
+
+## Branch & PR discipline
+- <branching strategy, PR-only flow, auto-merge convention>
+- ALWAYS ask for user confirmation before `gh pr create`.
+
+## CI parity before push
+Local checks must mirror the CI matrix exactly. Lint failures on test/e2e directories, coverage thresholds, and build-time constraints often only surface in CI — costing follow-up commits. Run the full local equivalent before pushing.
+
+## Sub-agent scope
+- When delegating, give the sub-agent an explicit allowlist of files it may modify.
+- Sub-agents must not edit `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `CHANGELOG.md`, or other project-management files unless explicitly tasked.
+- The primary session retains exclusive ownership of any file it has already committed in the current session — sub-agents should return diffs for the primary to apply.
+
+## Locale & style
+- <British/American English, dash conventions, voice — only what the project actually mandates>
 
 ## Voice & conventions
 - See `docs/brand.md` / `.agent/conventions.md` if applicable.
@@ -91,6 +107,10 @@ Use this template. Fill in placeholders from the project's existing CLAUDE.md / 
 ## Out of scope for agents
 - <files or directories agents should never touch>
 ```
+
+**Sourcing tips when populating the template:**
+- If the project has been running for a while, check the user's `~/.claude/usage-data/` insights or `gotchas.md` for recurring friction patterns to encode as rules.
+- Sub-agent scope, CI parity, and sibling-grep are common additions worth checking even when the user hasn't mentioned them — they prevent the most common rework loops.
 
 ### Step 3 — Create thin adapter files
 
@@ -138,6 +158,14 @@ List what was created/changed and what the user should do next:
 - Add MCP servers to `.mcp.json` if needed.
 - If using Codex/Cursor, drop equivalent adapter files.
 - Verify `AGENTS.md` reads correctly by running each agent against a small task.
+
+### Step 7 — (Optional) Offer CI-parity scaffolding
+If the project has `.github/workflows/` and the user mentions CI friction (or insights show recurring local-vs-CI failures), offer separately:
+1. A `scripts/ci-local.sh` that mirrors every CI check in the same order with the same flags.
+2. A `Stop` hook in `.claude/settings.json` that runs it before declaring a task done.
+3. A line in `AGENTS.md` requiring it before push.
+
+Do NOT scaffold this automatically — it's a separate concern from multi-agent setup. Mention it as a follow-up.
 
 ---
 
