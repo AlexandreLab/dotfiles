@@ -1,0 +1,1 @@
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/skillify/SKILL.md

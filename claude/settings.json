@@ -108,6 +108,5 @@
       }
     }
   },
-  "effortLevel": "high",
-  "model": "opus[1m]"
+  "effortLevel": "medium"
 }
