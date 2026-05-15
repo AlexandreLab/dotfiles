@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# install.sh — set up symlinks from ~/.claude/ to this dotfiles repo
+# install.sh — set up symlinks from ~/.claude/ and ~/agents-shared/ to this dotfiles repo
 #
 # Run once after cloning:
 #   git clone https://github.com/AlexandreLab/dotfiles.git ~/dotfiles
@@ -62,8 +62,27 @@ if [ -f "$PLIST_SRC" ]; then
     echo "⚠ launchd load failed — run manually: launchctl load $PLIST_DST"
 fi
 
+# Symlink ~/agents-shared → dotfiles/agents-shared
+AGENTS_SRC="$DOTFILES_DIR/agents-shared"
+AGENTS_DST="$HOME/agents-shared"
+
+if [ -d "$AGENTS_SRC" ]; then
+  if [ -L "$AGENTS_DST" ]; then
+    echo "✓ ~/agents-shared already symlinked"
+  elif [ -e "$AGENTS_DST" ]; then
+    backup="$AGENTS_DST.bak.$(date +%Y%m%d%H%M%S)"
+    echo "⚠ backing up existing ~/agents-shared → $backup"
+    mv "$AGENTS_DST" "$backup"
+    ln -s "$AGENTS_SRC" "$AGENTS_DST"
+    echo "✓ linked ~/agents-shared → $AGENTS_SRC"
+  else
+    ln -s "$AGENTS_SRC" "$AGENTS_DST"
+    echo "✓ linked ~/agents-shared → $AGENTS_SRC"
+  fi
+fi
+
 echo ""
-echo "Done. Verify with: ls -la ~/.claude/"
+echo "Done. Verify with: ls -la ~/.claude/ && ls -la ~/agents-shared"
 echo "Auto-sync log: ~/dotfiles/.sync.log"
 echo ""
 echo "Note: ~/.claude/skills/gstack/ and ostack/ are large binary skills"

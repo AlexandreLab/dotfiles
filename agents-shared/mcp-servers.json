@@ -1,0 +1,11 @@
+{
+  "$comment": "Canonical MCP server definitions. Edit here, then run sync-mcp.sh to regenerate per-tool configs. Each server entry uses the Gemini CLI / Cursor schema (`type` + `url` for HTTP; `command` + `args` for stdio).",
+  "mcpServers": {
+    "context7": {
+      "$note": "Upstash Context7 — current docs lookup for libraries, frameworks, SDKs. Already available in Claude Code via the Claude.ai integration (no local config needed). Configured locally for Gemini CLI / Codex / Cursor.",
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {}
+    }
+  }
+}
