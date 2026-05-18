@@ -61,6 +61,7 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
+  "model": "opus",
   "hooks": {
     "Stop": [
       {
@@ -109,6 +110,5 @@
       }
     }
   },
-  "effortLevel": "medium",
-  "model": "opus"
+  "effortLevel": "high"
 }
