@@ -12,6 +12,11 @@ This file holds Claude-only extras that other tools can't honor.
 - When working with Stripe (payments, subscriptions, webhooks), consult `stripe-best-practices`.
 - When starting a new project that will be worked on by multiple agents, run `multi-agent-setup`.
 
+## Self-correction policy
+
+- Anytime Claude does something incorrectly, add the lesson to the relevant project's CLAUDE.md so it knows not to repeat the mistake.
+- After every correction from the user, end with: "Update your CLAUDE.md so you don't make that mistake again." — then actually do it.
+
 ## Subagent model IDs
 
 The general ladder lives in `AGENTS.md`. Concrete Claude model IDs:
