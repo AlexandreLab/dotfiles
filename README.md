@@ -35,6 +35,16 @@ git commit -m "chore: sync claude config"
 git push
 ```
 
+## Sharing with a collaborator
+
+The same install steps above work for anyone with read access to this repo. They get:
+
+- Your global `CLAUDE.md` rules
+- All slash commands and skills (except the heavy gstack/ostack bundles)
+- The shared `agents-shared/` playbooks that apply across every AI agent
+
+A launchd job (`com.alexandrecanet.dotfiles-sync.plist`) auto-commits and pushes config changes daily, so `main` is generally current — collaborators can `git pull` to stay in sync.
+
 ## What's excluded
 
 - `claude/skills/gstack/` and `claude/skills/ostack/` — 600MB+ embedded codebases, not suitable for git
