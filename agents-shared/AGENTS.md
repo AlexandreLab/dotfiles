@@ -109,3 +109,16 @@ When dispatching subagents or sub-tasks, choose model by task complexity:
 | Architecture, design decisions, review | top tier (Opus / Ultra) |
 
 When in doubt: if the plan is fully specified and the task touches ≤2 files → cheapest. Multi-file judgment → mid. Review or ADR → top.
+
+---
+
+## Writing style (prose & content)
+
+Applies to all human-facing prose the agent writes: blog posts, social media posts, marketing copy, emails, newsletters, documentation, and READMEs. Not code identifiers.
+
+- **Never use em dashes (—).** They are a common AI-writing tell. Instead use one of:
+  - a spaced en dash ( – ) for a parenthetical aside;
+  - a comma, colon, or full stop where the sentence allows;
+  - parentheses or brackets for a genuine aside.
+- Do not substitute a double hyphen (`--`) or an unspaced hyphen for an em dash either — rewrite the sentence.
+- Project-specific style guides (e.g. a repo's `DESIGN.md` or brand voice doc) may add stricter punctuation rules, but must never re-permit the em dash.
