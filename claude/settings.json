@@ -61,7 +61,7 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "Stop": [
       {
