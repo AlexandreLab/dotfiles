@@ -12,6 +12,14 @@ This file holds Claude-only extras that other tools can't honor.
 - When working with Stripe (payments, subscriptions, webhooks), consult `stripe-best-practices`.
 - When starting a new project that will be worked on by multiple agents, run `multi-agent-setup`.
 
+## Writing documents
+
+- **Consistent level of detail across a document.** When a doc has repeated parallel items (e.g. emails
+  in a flow spec, sections, table rows, API endpoints, list entries), give **every** item the **same
+  structure and depth** — the same fields (subject, preheader, body, CTA, etc.) and the same completeness.
+  Never fully spec some items and abbreviate others. If one item genuinely differs, spell out why; don't
+  just leave it thinner. Do a consistency pass before finishing.
+
 ## Self-correction policy
 
 - Anytime Claude does something incorrectly, add the lesson to the relevant project's CLAUDE.md so it knows not to repeat the mistake.
