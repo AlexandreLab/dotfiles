@@ -61,7 +61,6 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
-  "model": "claude-opus-4-8[1m]",
   "hooks": {
     "Stop": [
       {
@@ -113,5 +112,6 @@
     }
   },
   "effortLevel": "high",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "model": "claude-fable-5[1m]"
 }
