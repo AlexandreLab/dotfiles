@@ -112,6 +112,5 @@
     }
   },
   "effortLevel": "high",
-  "tui": "fullscreen",
-  "model": "claude-fable-5[1m]"
+  "tui": "fullscreen"
 }
