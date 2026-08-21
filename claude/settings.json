@@ -112,5 +112,39 @@
     }
   },
   "effortLevel": "high",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: Supabase (Postgres), Shopify (Admin API) — per .env.example and CI secrets",
+      "**Repository visibility**: private (AlexandreLab/Loste_antigravity, confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: .env (gitignored, local-only) — CI secrets referenced: GITHUB_TOKEN, SHOPIFY_SHOP, SHOPIFY_TOKEN",
+      "**Default / protected branches**: Default branch master; no protected branches listed and rulesets not queryable here — treat master as sensitive to force-push/history-rewrite regardless",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Source control**: The Loste_antigravity repo (github.com/AlexandreLab/Loste_antigravity) and its origin remote only",
+      "**Trusted internal domains**: getloste.com (this project's Shopify storefront, contacted 59× in transcripts)",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: Shopify Admin API (getloste.myshopify.com), Supabase Postgres (SUPABASE_DB_URL)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: .env and .env.example (Shopify/Supabase/API credentials), docs/marketing/2026-06-22-loste-email-retention-growth-strategy.md (business-sensitive marketing strategy) — share only with audiences cleared for Loste internal business data",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development — marketing/analytics platform work (Loste Mission Control, content & SEO, brain wiki) for the Loste brand",
+      "**Trusted repo**: Loste_antigravity (github.com/AlexandreLab/Loste_antigravity), private — confidential business material (marketing strategy, analytics) is fine to commit here; secrets and credentials (e.g. .env contents, SHOPIFY_TOKEN) are never cleared into the repo regardless of visibility",
+      "**Org-specific CLIs**: uv (routine, 25× in this project's transcripts and 210× in shell history)",
+      "No additional 'routine under <user>/ prefix' qualifiers found"
+    ],
+    "allow": [
+      "$defaults",
+      "Bash(uv run:*) in /Users/alexandrecanet/Documents/01_Code/Loste_antigravity",
+      "Bash(uv sync:*) in /Users/alexandrecanet/Documents/01_Code/Loste_antigravity",
+      "Bash(sips:*) in /Users/alexandrecanet/Documents/01_Code/Loste_antigravity"
+    ]
+  }
 }
