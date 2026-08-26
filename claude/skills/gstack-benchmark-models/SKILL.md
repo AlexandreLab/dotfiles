@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/benchmark-models/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/benchmark-models/SKILL.md

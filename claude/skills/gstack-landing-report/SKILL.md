@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/landing-report/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/landing-report/SKILL.md

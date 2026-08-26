@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/autoplan/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/autoplan/SKILL.md

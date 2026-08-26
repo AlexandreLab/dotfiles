@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/ios-sync/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/ios-sync/SKILL.md

@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/canary/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/canary/SKILL.md

@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/make-pdf/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/make-pdf/SKILL.md

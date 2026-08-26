@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/setup-gbrain/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/setup-gbrain/SKILL.md

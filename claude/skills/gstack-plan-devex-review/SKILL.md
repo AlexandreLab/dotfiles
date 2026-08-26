@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/plan-devex-review/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/plan-devex-review/SKILL.md

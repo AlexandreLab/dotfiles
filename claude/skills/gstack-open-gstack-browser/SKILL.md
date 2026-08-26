@@ -1,1 +1,1 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/open-gstack-browser/SKILL.md
+/Users/alexandrecanet/.claude/skills/gstack/open-gstack-browser/SKILL.md
