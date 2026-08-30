@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/office-hours/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/office-hours/SKILL.md

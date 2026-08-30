@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/context-save/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/context-save/SKILL.md

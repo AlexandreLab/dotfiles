@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/guard/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/guard/SKILL.md

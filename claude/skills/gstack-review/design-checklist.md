@@ -1,1 +1,1 @@
-../../skills/gstack/review/design-checklist.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/review/design-checklist.md

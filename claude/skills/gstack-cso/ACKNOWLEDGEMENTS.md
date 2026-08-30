@@ -1,1 +1,1 @@
-../../skills/gstack/cso/ACKNOWLEDGEMENTS.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/cso/ACKNOWLEDGEMENTS.md

@@ -70,6 +70,15 @@
             "command": "cp ~/.claude/settings.json ~/dotfiles/claude/settings.json"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -120,6 +129,7 @@
   },
   "effortLevel": "high",
   "tui": "fullscreen",
+  "agentPushNotifEnabled": true,
   "autoMode": {
     "allow": [
       "$defaults",
@@ -154,5 +164,5 @@
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
   },
-  "agentPushNotifEnabled": true
+  "model": "claude-fable-5[1m]"
 }

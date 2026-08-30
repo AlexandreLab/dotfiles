@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/plan-design-review/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/plan-design-review/SKILL.md

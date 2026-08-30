@@ -1,1 +1,1 @@
-../../skills/gstack/review/greptile-triage.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/review/greptile-triage.md

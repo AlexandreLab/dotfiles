@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/plan-tune/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/plan-tune/SKILL.md

@@ -1,1 +1,1 @@
-../../skills/gstack/review/TODOS-format.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/review/TODOS-format.md

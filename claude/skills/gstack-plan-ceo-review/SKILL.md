@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/plan-ceo-review/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/plan-ceo-review/SKILL.md

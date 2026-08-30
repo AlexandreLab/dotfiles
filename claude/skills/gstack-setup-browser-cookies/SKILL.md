@@ -1,1 +1,1 @@
-/Users/alexandrecanet/.claude/skills/gstack/setup-browser-cookies/SKILL.md
+/Users/alexandrecanet/dotfiles/claude/skills/gstack/setup-browser-cookies/SKILL.md
