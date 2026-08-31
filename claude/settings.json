@@ -163,6 +163,5 @@
       "**Org-specific CLIs**: uv (routine, 25× in this project's transcripts and 210× in shell history)",
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
-  },
-  "model": "claude-fable-5[1m]"
+  }
 }
