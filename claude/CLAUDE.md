@@ -43,6 +43,27 @@ This file holds Claude-only extras that other tools can't honor.
 - Anytime Claude does something incorrectly, add the lesson to the relevant project's CLAUDE.md so it knows not to repeat the mistake.
 - After every correction from the user, end with: "Update your CLAUDE.md so you don't make that mistake again." — then actually do it.
 
+## Token guard
+
+Context is re-sent on every turn, so anything that enters it is paid for repeatedly.
+82% of measured spend is re-sent context, not new work. Accordingly:
+
+- **Be concise.** No preamble, no recap of what you just did, no narrating options you
+  will not take. Answer, then stop. Long explanations cost the user on every later turn,
+  not just this one.
+- **Route mechanical work to a Haiku sub-agent** (`claude-haiku-4-5-20251001`): renames,
+  reformatting, summarising a file, scraping/extracting, mass find-and-replace, boilerplate
+  generation, log triage. Dispatch it with the `model` override and keep only its
+  conclusion. Never spend Opus context reading a file you only need one fact from.
+- **Never suggest `/compact` as a cost-saving measure.** Compaction *re-reads the entire
+  conversation and writes a fresh cache* — it costs more than it saves and destroys the
+  prefix everything downstream was reusing. If context is full the answer is `/clear`
+  and a new session, not compaction.
+- **Do not re-read a file you already read**, and do not re-run a check that passed until
+  the code changed. The transcript already holds the result.
+- **Batch independent tool calls into one message.** Each round trip re-sends the whole
+  conversation.
+
 ## Subagent model IDs
 
 The general ladder lives in `AGENTS.md`. Concrete Claude model IDs:
@@ -50,5 +71,5 @@ The general ladder lives in `AGENTS.md`. Concrete Claude model IDs:
 | Tier | Model ID |
 |---|---|
 | Cheapest (mechanical) | `claude-haiku-4-5-20251001` |
-| Mid (integration / debugging) | `claude-sonnet-4-6` |
-| Top (architecture / review) | `claude-opus-4-7` |
+| Mid (integration / debugging) | `claude-sonnet-5` |
+| Top (architecture / review) | `claude-opus-5` |

@@ -1,6 +1,6 @@
 ---
 name: multi-agent-setup
-description: Scaffold canonical AGENTS.md plus thin per-tool adapters (CLAUDE.md, GEMINI.md, Codex) so every AI agent reads one source of truth. Use for "set up multi-agent", "share rules across agents".
+description: Use when starting a new project (or onboarding an existing one) that will be worked on by multiple AI agents — Claude Code, Gemini CLI, Codex, GitHub Copilot, Cursor, etc. — and you want them to share the same instructions, MCP servers, and playbooks. Scaffolds the canonical AGENTS.md + thin per-tool adapter files so every agent reads from one source of truth. Trigger on phrases like "set up multi-agent", "share rules across agents", "configure for Claude and Gemini", or when the user asks to add AGENTS.md / GEMINI.md / Codex config to a project.
 ---
 
 # Multi-Agent Setup

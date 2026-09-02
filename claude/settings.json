@@ -87,9 +87,22 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'WORKSPACE=$(pwd); MARKER=\"/tmp/.devcontainer-reminded-$(echo \"$WORKSPACE\" | md5 -q 2>/dev/null || echo \"$WORKSPACE\" | md5sum | cut -c1-8)\"; if [ -d \"$WORKSPACE/.git\" ] && [ ! -d \"$WORKSPACE/.devcontainer\" ] && [ ! -f \"$MARKER\" ]; then touch \"$MARKER\"; echo \"[devcontainer-reminder] No .devcontainer/ found — consider the creating-devcontainer skill for sandboxed elevated permissions.\"; fi'"
+            "command": "bash -c 'WORKSPACE=$(pwd); MARKER=\"/tmp/.devcontainer-reminded-$(echo \"$WORKSPACE\" | md5 -q 2>/dev/null || echo \"$WORKSPACE\" | md5sum | cut -c1-8)\"; if [ -d \"$WORKSPACE/.git\" ] && [ ! -d \"$WORKSPACE/.devcontainer\" ] && [ ! -f \"$MARKER\" ]; then touch \"$MARKER\"; echo \"[devcontainer-reminder] No .devcontainer/ found \u2014 consider the creating-devcontainer skill for sandboxed elevated permissions.\"; fi'"
           }
         ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/tools/hooks/trim-noisy-bash.sh\"",
+            "timeout": 10
+          }
+        ],
+        "_source": "token-audit-trim"
       }
     ]
   },
@@ -141,28 +154,40 @@
     "environment": [
       "### Org-wide",
       "**Organization**: None configured",
-      "**Cloud provider(s)**: Supabase (Postgres), Shopify (Admin API) — per .env.example and CI secrets",
+      "**Cloud provider(s)**: Supabase (Postgres), Shopify (Admin API) \u2014 per .env.example and CI secrets",
       "**Repository visibility**: private (AlexandreLab/Loste_antigravity, confirmed via gh)",
-      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
-      "**Secrets management**: .env (gitignored, local-only) — CI secrets referenced: GITHUB_TOKEN, SHOPIFY_SHOP, SHOPIFY_TOKEN",
-      "**Default / protected branches**: Default branch master; no protected branches listed and rulesets not queryable here — treat master as sensitive to force-push/history-rewrite regardless",
+      "**Internal sharing / snippet hosting**: None configured \u2014 treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: .env (gitignored, local-only) \u2014 CI secrets referenced: GITHUB_TOKEN, SHOPIFY_SHOP, SHOPIFY_TOKEN",
+      "**Default / protected branches**: Default branch master; no protected branches listed and rulesets not queryable here \u2014 treat master as sensitive to force-push/history-rewrite regardless",
       "**CI/CD deploy targets**: None configured",
       "**Network posture**: None configured",
       "**Source control**: The Loste_antigravity repo (github.com/AlexandreLab/Loste_antigravity) and its origin remote only",
-      "**Trusted internal domains**: getloste.com (this project's Shopify storefront, contacted 59× in transcripts)",
+      "**Trusted internal domains**: getloste.com (this project's Shopify storefront, contacted 59\u00d7 in transcripts)",
       "**Trusted cloud buckets**: None configured",
       "**Key internal services**: Shopify Admin API (getloste.myshopify.com), Supabase Postgres (SUPABASE_DB_URL)",
       "**Internal package registry**: None configured",
-      "**Sensitive data locations & audiences**: .env and .env.example (Shopify/Supabase/API credentials), docs/marketing/2026-06-22-loste-email-retention-growth-strategy.md (business-sensitive marketing strategy) — share only with audiences cleared for Loste internal business data",
+      "**Sensitive data locations & audiences**: .env and .env.example (Shopify/Supabase/API credentials), docs/marketing/2026-06-22-loste-email-retention-growth-strategy.md (business-sensitive marketing strategy) \u2014 share only with audiences cleared for Loste internal business data",
       "**Data retention / declassification**: None configured",
       "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
-      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected deployment namespaces / environments**: None configured \u2014 fall back to the Sensitive remote targets heuristic",
       "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
       "### User-specific",
-      "**Primary use of Claude Code**: software development — marketing/analytics platform work (Loste Mission Control, content & SEO, brain wiki) for the Loste brand",
-      "**Trusted repo**: Loste_antigravity (github.com/AlexandreLab/Loste_antigravity), private — confidential business material (marketing strategy, analytics) is fine to commit here; secrets and credentials (e.g. .env contents, SHOPIFY_TOKEN) are never cleared into the repo regardless of visibility",
-      "**Org-specific CLIs**: uv (routine, 25× in this project's transcripts and 210× in shell history)",
+      "**Primary use of Claude Code**: software development \u2014 marketing/analytics platform work (Loste Mission Control, content & SEO, brain wiki) for the Loste brand",
+      "**Trusted repo**: Loste_antigravity (github.com/AlexandreLab/Loste_antigravity), private \u2014 confidential business material (marketing strategy, analytics) is fine to commit here; secrets and credentials (e.g. .env contents, SHOPIFY_TOKEN) are never cleared into the repo regardless of visibility",
+      "**Org-specific CLIs**: uv (routine, 25\u00d7 in this project's transcripts and 210\u00d7 in shell history)",
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/tools/statusline.sh\"",
+    "padding": 0
+  },
+  "disabledMcpjsonServers": [
+    "claude.ai Canva",
+    "claude.ai Gmail",
+    "claude.ai Google Calendar",
+    "claude.ai Google Drive",
+    "claude.ai Interactive Brokers (IBKR)"
+  ]
 }
