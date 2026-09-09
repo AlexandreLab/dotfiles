@@ -104,10 +104,22 @@
         ],
         "_source": "token-audit-trim"
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/alexandrecanet/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
-    "context7@claude-plugins-official": true,
+    "context7@claude-plugins-official": false,
     "vercel-plugin@vercel-vercel-plugin": false,
     "claude-mem@thedotmack": true,
     "supabase@claude-plugins-official": true,
