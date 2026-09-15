@@ -61,6 +61,14 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
+  "model": "claude-fable-5-1[1m]",
+  "disabledMcpjsonServers": [
+    "claude.ai Canva",
+    "claude.ai Gmail",
+    "claude.ai Google Calendar",
+    "claude.ai Google Drive",
+    "claude.ai Interactive Brokers (IBKR)"
+  ],
   "hooks": {
     "Stop": [
       {
@@ -78,8 +86,7 @@
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ],
-        "_gstack_source": "gstack-timeline-stop"
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -101,19 +108,17 @@
             "command": "bash \"$HOME/.claude/tools/hooks/trim-noisy-bash.sh\"",
             "timeout": 10
           }
-        ],
-        "_source": "token-audit-trim"
+        ]
       },
       {
-        "_gstack_source": "plan-tune-cathedral",
+        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)",
         "hooks": [
           {
             "type": "command",
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/question-preference-hook",
             "timeout": 5
           }
-        ],
-        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)"
+        ]
       }
     ],
     "SessionStart": [
@@ -130,28 +135,31 @@
     ],
     "PostToolUse": [
       {
-        "_gstack_source": "plan-tune-cathedral",
+        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)",
         "hooks": [
           {
             "type": "command",
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/question-log-hook",
             "timeout": 5
           }
-        ],
-        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)"
+        ]
       },
       {
-        "_gstack_source": "auq-error-fallback",
+        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)",
         "hooks": [
           {
             "type": "command",
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/auq-error-fallback-hook",
             "timeout": 5
           }
-        ],
-        "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)"
+        ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/tools/statusline.sh\"",
+    "padding": 0
   },
   "enabledPlugins": {
     "context7@claude-plugins-official": false,
@@ -225,16 +233,9 @@
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/tools/statusline.sh\"",
-    "padding": 0
-  },
-  "disabledMcpjsonServers": [
-    "claude.ai Canva",
-    "claude.ai Gmail",
-    "claude.ai Google Calendar",
-    "claude.ai Google Drive",
-    "claude.ai Interactive Brokers (IBKR)"
-  ]
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    }
+  }
 }
