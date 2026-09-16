@@ -61,7 +61,7 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
-  "model": "claude-fable-5-1[1m]",
+  "model": "opus[1m]",
   "disabledMcpjsonServers": [
     "claude.ai Canva",
     "claude.ai Gmail",
@@ -197,6 +197,11 @@
     }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    }
+  },
   "tui": "fullscreen",
   "agentPushNotifEnabled": true,
   "autoMode": {
@@ -232,10 +237,5 @@
       "**Org-specific CLIs**: uv (routine, 25× in this project's transcripts and 210× in shell history)",
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
-  },
-  "modelSettings": {
-    "claude-fable-5-1": {
-      "effortLevel": "medium"
-    }
   }
 }
