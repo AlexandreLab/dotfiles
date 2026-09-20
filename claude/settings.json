@@ -168,7 +168,8 @@
     "supabase@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
-    "watch@claude-video": true
+    "watch@claude-video": true,
+    "typesafe@typesafe-ai": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -193,6 +194,12 @@
       "source": {
         "source": "github",
         "repo": "bradautomates/claude-video"
+      }
+    },
+    "typesafe-ai": {
+      "source": {
+        "source": "github",
+        "repo": "typesafe-ai/skills"
       }
     }
   },
