@@ -61,7 +61,7 @@
       "/Users/alexandrecanet/.agents/skills/brain-ingest"
     ]
   },
-  "model": "claude-fable-5-1[1m]",
+  "model": "opus[1m]",
   "disabledMcpjsonServers": [
     "claude.ai Canva",
     "claude.ai Gmail",
