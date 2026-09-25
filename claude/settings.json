@@ -207,9 +207,13 @@
   "modelSettings": {
     "claude-fable-5-1": {
       "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,
   "autoMode": {
     "allow": [
@@ -244,6 +248,5 @@
       "**Org-specific CLIs**: uv (routine, 25× in this project's transcripts and 210× in shell history)",
       "No additional 'routine under <user>/ prefix' qualifiers found"
     ]
-  },
-  "skipDangerousModePermissionPrompt": true
+  }
 }
