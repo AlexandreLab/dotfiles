@@ -80,6 +80,7 @@ cd ~/.claude/skills/gstack && ./setup --prefix
 |---|---|---|
 | herdr | herdrdev/herdr | `npx -y skills add herdrdev/herdr --skill herdr -g -a claude-code -y --copy` |
 | stripe-best-practices | stripe/ai | `npx -y skills add stripe/ai --skill stripe-best-practices -g -a claude-code -y --copy` |
+| next-best-practices | vercel-labs/next-skills | `npx -y skills add vercel-labs/next-skills --skill next-best-practices -g -a claude-code -y --copy` (gosip's CLAUDE.md names it) |
 
 Always pass `--copy`. Without it the CLI writes a relative symlink from `~/.claude/skills`, but that folder is itself a symlink into this repo, so the link resolves to the wrong place and the skill never loads.
 
@@ -113,7 +114,7 @@ claude plugin install supabase@claude-plugins-official             # once per pl
 
 ### Installed but not loaded into Claude
 
-`~/.agents/skills` on the old machine also holds skills that were never linked into Claude Code: `next-best-practices`, `next-cache-components`, `playwright-best-practices`, `webapp-testing`, `vitest-best-practices`, `e2e-studio-tests`, and old unprefixed gstack copies (`review`, `ship`, `qa`, and others). The Vercel and Supabase plugins cover the first two. Install any of the others with the skills CLI (with `--copy`) only if a project needs it.
+`~/.agents/skills` on the old machine also holds skills that were never linked into Claude Code: `next-cache-components`, `playwright-best-practices`, `webapp-testing`, `vitest-best-practices`, `e2e-studio-tests`, and old unprefixed gstack copies (`review`, `ship`, `qa`, and others). The Vercel plugin covers the first. Install any of the others with the skills CLI (with `--copy`) only if a project needs it.
 
 ## Removed on purpose (September 2026)
 

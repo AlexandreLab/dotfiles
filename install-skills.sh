@@ -34,6 +34,7 @@ fi
 GITHUB_SKILLS=(
   "herdrdev/herdr:herdr"
   "stripe/ai:stripe-best-practices"
+  "vercel-labs/next-skills:next-best-practices"
 )
 for entry in "${GITHUB_SKILLS[@]}"; do
   repo="${entry%%:*}"; skill="${entry##*:}"
