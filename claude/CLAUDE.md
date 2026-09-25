@@ -1,75 +1,56 @@
 # Claude Instructions (Global)
 
-See [`~/agents-shared/AGENTS.md`](../agents-shared/AGENTS.md) for canonical engineering rules — they apply to every project and every AI agent.
+The rules every AI agent follows live in `~/agents-shared/AGENTS.md`, imported here so they load in every session:
 
-This file holds Claude-only extras that other tools can't honor.
+@~/agents-shared/AGENTS.md
 
-## Skills to apply
+This file adds what only Claude Code can act on. Where the two disagree, the more specific rule wins: a project's CLAUDE.md or AGENTS.md over this file, this file over the shared one.
 
-- Before writing more than ~20 lines of code, consult `applying-engineering-standards`.
-- Before any code review request, apply the 4-gate review framework from `applying-engineering-standards`.
-- Before opening or approving a PR on files touching billing, auth, webhooks, or migrations, run `gstack-review`.
-- When working with Stripe (payments, subscriptions, webhooks), consult `stripe-best-practices`.
-- When starting a new project that will be worked on by multiple agents, run `multi-agent-setup`.
+## When to load a skill
+
+Load a skill when the task in front of you matches it, not on the chance that it might. Each skill costs context on every later turn, so don't chain skills into each other unless the task needs each step.
+
+- Changes that touch billing, auth, webhooks or database migrations: run `gstack-review` before opening or approving the PR. These are the areas where a missed bug costs money or data.
+- Stripe work (payments, subscriptions, webhooks): read `stripe-best-practices` first.
+- Architecture or trade-off decisions, and when the user asks for a 4-gate review: use `applying-engineering-standards`.
+- A new project that several agents will work on: run `multi-agent-setup`.
 
 ## Writing documents
 
-- **Consistent level of detail across a document.** When a doc has repeated parallel items (e.g. emails
-  in a flow spec, sections, table rows, API endpoints, list entries), give **every** item the **same
-  structure and depth** — the same fields (subject, preheader, body, CTA, etc.) and the same completeness.
-  Never fully spec some items and abbreviate others. If one item genuinely differs, spell out why; don't
-  just leave it thinner. Do a consistency pass before finishing.
+When a document has repeated parallel items (emails in a flow, sections, table rows, API endpoints), give every item the same structure and depth: the same fields and the same completeness. Readers compare items side by side, and a thinner one reads as unfinished. If one item genuinely differs, say why. Do a consistency pass before finishing.
 
-## Hooks for deterministic behaviour
+Follow the em dash rule in AGENTS.md in everything you write, including messages to the user.
 
-- **If a required behaviour is deterministic, enforce it with a hook — never with a prose instruction.**
-  Formatting on edit, branch/push guards, quality gates before push, banned commands (e.g. `pip` in a
-  uv-only repo): these are mechanical predicates on a tool call or git event, and instructions agents
-  "should remember" will eventually be missed. Prose is only for judgment calls (when/how/whether).
-- Prefer, in order:
-  1. **Git hooks** committed to the repo (`.githooks/` + `git config core.hooksPath .githooks`) — truly
-     agent-agnostic: they fire for every AI agent and every human on `commit`/`push`.
-  2. **Claude hooks** in `settings.json` (`PreToolUse` to block, `PostToolUse` to react) for things git
-     can't see (tool-call commands, file edits as they happen).
-- Keep the logic in **version-controlled shared scripts** (e.g. `tools/hooks/*.sh`); each agent's hook
-  config is a one-line call to the script, so Gemini/Codex/Cursor adapters reuse the same enforcement.
-- Give every blocking hook a clear error message telling the agent what to do instead, and a deliberate
-  env-var escape hatch (e.g. `ALLOW_MASTER=1`).
-- When reviewing a project's CLAUDE.md/AGENTS.md, flag rules that keep being restated or violated —
-  they are hook candidates. Worked example: Loste_antigravity's `.githooks/` + `tools/hooks/`.
+## Hooks, not reminders
 
-## Self-correction policy
+If a required behaviour is mechanical (formatting on edit, branch and push guards, the quality gate before push, banned commands such as `pip` in a uv-only repo), enforce it with a hook rather than a written instruction. Instructions an agent has to remember eventually get missed; a hook fires every time. Written rules are for judgment calls.
 
-- Anytime Claude does something incorrectly, add the lesson to the relevant project's CLAUDE.md so it knows not to repeat the mistake.
-- After every correction from the user, end with: "Update your CLAUDE.md so you don't make that mistake again." — then actually do it.
+- Prefer git hooks committed to the repo (`.githooks/` plus `git config core.hooksPath .githooks`). They fire for every agent and every human.
+- Use Claude Code hooks in `settings.json` (`PreToolUse` to block, `PostToolUse` to react) for what git can't see, such as tool calls and file edits.
+- Keep the logic in shared scripts under version control (for example `tools/hooks/*.sh`), so each agent's hook config is a one-line call and other agents reuse the same check.
+- Give every blocking hook an error message that says what to do instead, and an env-var escape hatch (for example `ALLOW_MASTER=1`).
+- When reviewing a project's CLAUDE.md or AGENTS.md, point out rules that keep being restated or broken: they are candidates for a hook. Loste_antigravity's `.githooks/` and `tools/hooks/` are a worked example.
 
-## Token guard
+## Learning from corrections
 
-Context is re-sent on every turn, so anything that enters it is paid for repeatedly.
-82% of measured spend is re-sent context, not new work. Accordingly:
+When the user corrects something you did wrong, add a short lesson to that project's CLAUDE.md in the same turn, and tell the user in one line what you added. This is standing permission, and an exception to the AGENTS.md rule against editing CLAUDE.md unasked. Write the lesson as a rule with its reason, next to related rules, and update an existing entry rather than adding a near-duplicate. Lessons that apply to every project go in this file instead.
 
-- **Be concise.** No preamble, no recap of what you just did, no narrating options you
-  will not take. Answer, then stop. Long explanations cost the user on every later turn,
-  not just this one.
-- **Route mechanical work to a Haiku sub-agent** (`claude-haiku-4-5-20251001`): renames,
-  reformatting, summarising a file, scraping/extracting, mass find-and-replace, boilerplate
-  generation, log triage. Dispatch it with the `model` override and keep only its
-  conclusion. Never spend Opus context reading a file you only need one fact from.
-- **Never suggest `/compact` as a cost-saving measure.** Compaction *re-reads the entire
-  conversation and writes a fresh cache* — it costs more than it saves and destroys the
-  prefix everything downstream was reusing. If context is full the answer is `/clear`
-  and a new session, not compaction.
-- **Do not re-read a file you already read**, and do not re-run a check that passed until
-  the code changed. The transcript already holds the result.
-- **Batch independent tool calls into one message.** Each round trip re-sends the whole
-  conversation.
+## Keeping cost down
 
-## Subagent model IDs
+Every message re-sends the whole conversation, and in measured sessions 82% of spend was re-sent context rather than new work. What enters the context is paid for again on every later turn.
 
-The general ladder lives in `AGENTS.md`. Concrete Claude model IDs:
+- Be concise. Skip preamble, recaps and options you won't take. Answer, then stop.
+- Hand mechanical work to a subagent on the cheapest model: renames, reformatting, summarising or extracting from a file, bulk find-and-replace, boilerplate, log triage. Keep only its conclusion. If you need one fact from a large file, delegate the reading instead of loading the file.
+- Don't read a file again if you already have it in context and it hasn't changed since. Don't re-run a check that passed until the code changes.
+- Put independent tool calls in one message; each round trip re-sends everything.
+- Don't suggest `/compact` to save money. When context is full, suggest `/clear` and a fresh session, with a short handoff note if the work continues.
 
-| Tier | Model ID |
+## Which model a subagent uses
+
+AGENTS.md sets the ladder. In Claude Code, pass the alias as the Agent tool's `model`, so the table stays current as new versions ship:
+
+| Task | Alias |
 |---|---|
-| Cheapest (mechanical) | `claude-haiku-4-5-20251001` |
-| Mid (integration / debugging) | `claude-sonnet-5` |
-| Top (architecture / review) | `claude-opus-5` |
+| Mechanical: clear spec, one or two files | `haiku` |
+| Integration and debugging across several files | `sonnet` |
+| Architecture, design decisions, review | `opus` |
