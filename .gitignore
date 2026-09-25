@@ -1,6 +1,25 @@
-# Large embedded skill codebases — not suitable for git
-claude/skills/gstack/
-claude/skills/ostack/
+# Skills: only the user's own skills are stored here. Everything else in claude/skills/
+# (gstack and its gstack-* folders, skills-CLI installs, the seo skill, claude.ai synced
+# skills) is reinstalled by install-skills.sh. Add a new own skill to this list.
+claude/skills/*
+!claude/skills/LICENSE-superpowers
+!claude/skills/applying-engineering-standards/
+!claude/skills/brain-ingest/
+!claude/skills/brainstorming/
+!claude/skills/brand-story-architect/
+!claude/skills/creating-devcontainer/
+!claude/skills/data-visualisation-expert/
+!claude/skills/design-critic-loop/
+!claude/skills/design-ideation/
+!claude/skills/design-subtract/
+!claude/skills/multi-agent-setup/
+!claude/skills/ponytail-review/
+!claude/skills/receiving-code-review/
+!claude/skills/subagent-driven-development/
+!claude/skills/systematic-debugging/
+!claude/skills/test-driven-development/
+!claude/skills/using-git-worktrees/
+!claude/skills/writing-plans/
 
 # Claude Code runtime state — machine-specific or ephemeral
 claude/cache/

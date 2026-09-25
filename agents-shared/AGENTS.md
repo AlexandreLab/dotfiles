@@ -1,7 +1,7 @@
-# AGENTS.md — Global Engineering Rules
+# AGENTS.md: Global Engineering Rules
 
 > Canonical instructions for any AI coding agent (Claude Code, Gemini CLI, Codex, GitHub Copilot, Cursor, etc.).
-> Tool-specific files (`~/.claude/CLAUDE.md`, `~/.gemini/GEMINI.md`, `~/.codex/AGENTS.md`) are thin adapters that defer to this file.
+> Tool-specific files (`~/.claude/CLAUDE.md`, `~/.gemini/GEMINI.md`, `~/.codex/AGENTS.md`) are thin adapters that import this file (Claude: `@~/agents-shared/AGENTS.md`).
 
 ---
 
@@ -17,20 +17,20 @@ Before opening or approving a PR on any project, run a paranoid staff-engineer r
 
 **Grep for siblings before declaring a fix done.** After fixing any bug, search the entire codebase for the same pattern and fix ALL instances in one commit. A single-instance fix that misses a sibling is an incomplete fix. Applies to: assertion strings, env var names, display transformations, copy strings, and API method calls.
 
-**Never poll CI in-chat.** Do not loop on `gh pr checks` or `gh run watch` interactively — it drains quota and hits rate limits.
+**Never poll CI in-chat.** Do not loop on `gh pr checks` or `gh run watch` interactively: it drains quota and hits rate limits.
 
-**Auto-merge is mandatory when creating PRs.** After every `gh pr create`, immediately run `gh pr merge <number> --auto --squash` in the same step — never as a follow-up. The full sequence is always:
+**Auto-merge is mandatory when creating PRs.** After every `gh pr create`, immediately run `gh pr merge <number> --auto --squash` in the same step, not as a follow-up. The full sequence is always:
 ```bash
 gh pr create --title "..." --body "..."  # capture the PR number from output
 gh pr merge <number> --auto --squash      # set auto-merge immediately
 ```
-GitHub then merges when checks pass — no further monitoring needed.
+GitHub then merges when checks pass, so no further monitoring is needed.
 
 ---
 
 ## Multi-terminal / parallel feature work
 
-Each agent session must work on its own branch inside its own **git worktree** — never two sessions on the same branch simultaneously.
+Each agent session must work on its own branch inside its own **git worktree**, never two sessions on the same branch at once.
 
 Use the `using-git-worktrees` skill when creating a worktree. It handles directory selection, `.gitignore` safety, dependency setup, and baseline test verification automatically. Key conventions:
 
@@ -45,19 +45,19 @@ If neither exists and no preference is in CLAUDE.md/AGENTS.md, ask the user befo
 ```bash
 # Verify the directory is git-ignored before using it
 git check-ignore -q .worktrees
-git worktree add .worktrees/<branch> -b <branch> master
+git worktree add .worktrees/<branch> -b <branch> main   # or the repo's default branch
 cd .worktrees/<branch>
 # install deps, then run baseline tests
 ```
 
-If the user starts a session without specifying a branch, **ask which branch to use before touching any files.**
+Before the first edit, check the current branch. If it is the default branch (`main`), create a feature branch named after the task rather than editing there; ask only if the task doesn't suggest a sensible name or another session may already own that work.
 
 **Cleanup** when the branch is merged:
 ```bash
 git worktree remove .worktrees/<branch>
 ```
 
-Shared files (`.env`, local SQLite DBs, generated artefacts at the repo root) are visible across all worktrees — avoid concurrent writes to them from separate sessions.
+Shared files (`.env`, local SQLite DBs, generated artefacts at the repo root) are visible across all worktrees, so avoid concurrent writes to them from separate sessions.
 
 ---
 
@@ -79,7 +79,7 @@ If `uv` is not installed in the environment, surface that as a blocker rather th
 
 ## Scope discipline
 
-**Never touch `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `CHANGELOG.md`, or other project-management files unless explicitly asked.** Keep commits scoped to the task at hand. If you notice something worth logging, mention it in chat — don't write it yourself.
+**Never touch `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `CHANGELOG.md`, or other project-management files unless explicitly asked.** Keep commits scoped to the task at hand. If you notice something worth logging, mention it in chat rather than writing it yourself.
 
 **Verify branch before every commit.** Run `git branch --show-current` before committing. If on the wrong branch, stop and ask rather than committing and cherry-picking later.
 
@@ -92,7 +92,7 @@ If `uv` is not installed in the environment, surface that as a blocker rather th
 - **Be deliberate.** Do not rush. Speed that introduces debt or ambiguity is not speed.
 - **Verify everything.** Use inspection, documentation, logs, and reproducible tests. Never assume.
 - **Prefer explicit over clever.** Code should be obvious to a reader unfamiliar with its history.
-- **Fail loudly.** When multiple valid interpretations exist, surface the ambiguity and ask — do not silently pick one.
+- **Fail loudly.** When valid interpretations would lead to materially different results, surface the ambiguity and ask rather than silently picking one. When the choice is minor or easy to undo, pick the sensible default and say which one you picked.
 
 Priority order when principles conflict: **Maintainability > Security > Reliability > Performance.**
 
@@ -120,5 +120,5 @@ Applies to all human-facing prose the agent writes: blog posts, social media pos
   - a spaced en dash ( – ) for a parenthetical aside;
   - a comma, colon, or full stop where the sentence allows;
   - parentheses or brackets for a genuine aside.
-- Do not substitute a double hyphen (`--`) or an unspaced hyphen for an em dash either — rewrite the sentence.
+- Do not substitute a double hyphen (`--`) or an unspaced hyphen for an em dash either: rewrite the sentence.
 - Project-specific style guides (e.g. a repo's `DESIGN.md` or brand voice doc) may add stricter punctuation rules, but must never re-permit the em dash.

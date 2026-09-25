@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/ship/SKILL.md

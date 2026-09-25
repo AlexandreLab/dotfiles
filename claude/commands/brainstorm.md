@@ -1,1 +1,0 @@
-/Users/alexandrecanet/.agents/superpowers/commands/brainstorm.md

@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/open-gstack-browser/SKILL.md

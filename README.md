@@ -11,15 +11,19 @@ claude/
 ├── tools/statusline.py            # Status line: model, effort, context %, 5h limit, folder, branch
 ├── workspace-efficiency-guide.md  # How to set up any workspace for low token usage
 ├── commands/                      # Slash command shortcuts (/brainstorm, /write-plan, etc.)
-└── skills/                        # Reusable skill prompts (gstack/ and ostack/ excluded — too large)
+└── skills/                        # The user's own skills; third-party ones are reinstalled (see SKILLS.md)
 ```
 
 ## Install on a new machine
 
 ```bash
 git clone https://github.com/AlexandreLab/dotfiles.git ~/dotfiles
-cd ~/dotfiles && chmod +x install.sh && ./install.sh
+cd ~/dotfiles && ./install.sh && ./install-skills.sh
 ```
+
+`install-skills.sh` installs gstack, skills from GitHub, the SEO skill and the Claude Code plugins.
+[SKILLS.md](SKILLS.md) lists every skill and plugin with its source, and is written so an agent can
+follow it on a fresh machine.
 
 The script creates symlinks from `~/.claude/` into this repo. Any edits made through
 Claude Code (new skills, CLAUDE.md updates) automatically appear as changes here.
@@ -41,13 +45,14 @@ git push
 The same install steps above work for anyone with read access to this repo. They get:
 
 - Your global `CLAUDE.md` rules
-- All slash commands and skills (except the heavy gstack/ostack bundles)
+- The own skills stored here, plus the third-party skills and plugins that `install-skills.sh` fetches
 - The shared `agents-shared/` playbooks that apply across every AI agent
 
-A launchd job (`com.alexandrecanet.dotfiles-sync.plist`) auto-commits and pushes config changes daily, so `main` is generally current — collaborators can `git pull` to stay in sync.
+A launchd job (`com.alexandrecanet.dotfiles-sync.plist`) auto-commits and pushes config changes daily, so `main` is generally current, and collaborators can `git pull` to stay in sync.
 
 ## What's excluded
 
-- `claude/skills/gstack/` and `claude/skills/ostack/` — 600MB+ embedded codebases, not suitable for git
-- `claude/cache/`, `sessions/`, `backups/` and other runtime state — ephemeral, machine-specific
-- `claude/projects/` — session memory for individual projects (stays local)
+- Third-party skills (gstack, skills-CLI installs, the SEO skill, claude.ai synced skills): `.gitignore`
+  allowlists own skills by name, and `install-skills.sh` reinstalls the rest
+- `claude/cache/`, `sessions/`, `backups/` and other runtime state: ephemeral, machine-specific
+- `claude/projects/`: session memory for individual projects (stays local)

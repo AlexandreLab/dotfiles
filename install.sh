@@ -85,7 +85,6 @@ fi
 
 echo ""
 echo "Done. Verify with: ls -la ~/.claude/ && ls -la ~/agents-shared"
+echo "Next: ./install-skills.sh installs gstack, third-party skills and plugins (see SKILLS.md)."
 echo "Auto-sync log: ~/dotfiles/.sync.log"
 echo ""
-echo "Note: ~/.claude/skills/gstack/ and ostack/ are large binary skills"
-echo "excluded from this repo. Reinstall them separately if needed."

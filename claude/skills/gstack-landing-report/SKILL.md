@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/landing-report/SKILL.md

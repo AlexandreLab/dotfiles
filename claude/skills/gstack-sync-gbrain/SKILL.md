@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/sync-gbrain/SKILL.md

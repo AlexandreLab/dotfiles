@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/deslop-shared-libs/SKILL.md

@@ -1,22 +1,20 @@
 ---
 name: ponytail-review
-description: >
-  Code review focused exclusively on over-engineering. Finds what to delete:
-  reinvented standard library, unneeded dependencies, speculative abstractions,
-  dead flexibility. One line per finding: location, what to cut, what replaces
-  it. Use when the user says "review for over-engineering", "what can we
-  delete", "is this over-engineered", "simplify review", or invokes
-  /ponytail-review. Complements correctness-focused review, this one only
-  hunts complexity.
+description: "Over-engineering review of a diff or a whole repo: what to delete, inline, or replace with stdlib or native features. Use for \"review for over-engineering\", \"is this over-engineered\", \"audit this codebase\", \"what can I delete\", \"find bloat\", /ponytail-review, /ponytail-audit."
 ---
 
-Review diffs for unnecessary complexity. One line per finding: location, what
-to cut, what replaces it. The diff's best outcome is getting shorter.
+Hunt unnecessary complexity. One line per finding: location, what to cut, what replaces it. The best outcome is less code.
+
+## Modes
+
+- **Diff** (default): review the current diff or the PR named.
+- **Whole repo**: when the user asks to audit the codebase, find bloat, or what can be deleted from the repo. Scan the whole tree and rank findings biggest cut first. Look especially for dependencies the stdlib or platform already ships, interfaces with one implementation, factories with one product, wrappers that only delegate, files exporting one thing, dead flags and config, and hand-rolled stdlib.
 
 ## Format
 
-`L<line>: <tag> <what>. <replacement>.`, or `<file>:L<line>: ...` for
-multi-file diffs.
+Diff: `L<line>: <tag> <what>. <replacement>.`, or `<file>:L<line>: ...` when the diff spans several files.
+
+Whole repo: `<tag> <what to cut>. <replacement>. [path]`, one per line, ranked.
 
 Tags:
 
@@ -28,30 +26,23 @@ Tags:
 
 ## Examples
 
-❌ "This EmailValidator class might be more complex than necessary, have you
-considered whether all these validation rules are needed at this stage?"
+Not this: "This EmailValidator class might be more complex than necessary, have you considered whether all these validation rules are needed at this stage?"
 
-✅ `L12-38: stdlib: 27-line validator class. "@" in email, 1 line, real validation is the confirmation mail.`
+This:
 
-✅ `L4: native: moment.js imported for one format call. Intl.DateTimeFormat, 0 deps.`
+- `L12-38: stdlib: 27-line validator class. "@" in email, 1 line, real validation is the confirmation mail.`
+- `L4: native: moment.js imported for one format call. Intl.DateTimeFormat, 0 deps.`
+- `repo.py:L88: yagni: AbstractRepository with one implementation. Inline it until a second one exists.`
+- `L52-71: delete: retry wrapper around an idempotent local call. Nothing replaces it.`
+- `L30-44: shrink: manual loop builds dict. dict(zip(keys, values)), 1 line.`
+- `native: axios for three GET calls. fetch, 0 deps. [src/api/client.ts]`
 
-✅ `repo.py:L88: yagni: AbstractRepository with one implementation. Inline it until a second one exists.`
+## Total
 
-✅ `L52-71: delete: retry wrapper around an idempotent local call. Nothing replaces it.`
-
-✅ `L30-44: shrink: manual loop builds dict. dict(zip(keys, values)), 1 line.`
-
-## Scoring
-
-End with the only metric that matters: `net: -<N> lines possible.`
+End with `net: -<N> lines possible.` In whole-repo mode add dependencies: `net: -<N> lines, -<M> deps possible.`
 
 If there is nothing to cut, say `Lean already. Ship.` and stop.
 
 ## Boundaries
 
-Scope: over-engineering and complexity only. Correctness bugs, security holes,
-and performance are explicitly out of scope. Route them to a normal review
-pass, not this one. A single smoke test or `assert`-based
-self-check is the ponytail minimum, not bloat, never flag it for deletion.
-Does not apply the fixes, only lists them.
-"stop ponytail-review" or "normal mode": revert to verbose review style.
+Over-engineering and complexity only. Correctness bugs, security holes and performance belong to a normal review pass (`/code-review`), not this one. A single smoke test or `assert`-based self-check is the minimum, not bloat; don't flag it for deletion. Report only: list the findings, apply nothing.

@@ -1,83 +1,46 @@
 ---
 name: data-visualisation-expert
-description: Use when designing, planning, reviewing, or critiquing a dashboard, KPI panel, or data visualisation — especially when business requirements are vague, the metric list keeps growing, or every chart needs to justify its existence to a Product Owner before a line of code is written.
+description: Use when planning or reviewing a dashboard or KPI panel whose purpose is unclear, whose metric list keeps growing, or whose audience is mixed, to question each metric against the decision it serves before anything is built.
 ---
 
-# Data Visualisation Expert
+# Data visualisation expert
 
-## Overview
+Turn business requirements into dashboards where every element earns its place. Rather than building what is asked, question the request until each metric maps to a specific decision someone will make. For chart form, colour and marks, load the `dataviz` skill; this skill decides what belongs on the screen, not how it is drawn.
 
-Translate business requirements into dashboards where every pixel earns its place. Less is more: ruthlessly eliminate visual clutter, prioritise clarity over complexity, and design for human cognition. Do not build what is asked — interrogate the request until every metric maps to a specific, tangible business decision.
+Use it when designing a new dashboard, reviewing one that feels cluttered or aimed at the wrong audience, or answering a request to add "just one more KPI". It is not for charting-library syntax or for restyling inside a design that is already approved.
 
-## When to Use
+## Phase 1: question the Product Owner
 
-- Designing a new dashboard or analytics panel from scratch
-- Reviewing an existing dashboard that feels cluttered, confusing, or misaligned with its audience
-- Challenging a stakeholder's request to add "just one more KPI"
-- Selecting chart types, layout order, or temporal granularity for time-series data
-- Producing design recommendations before any implementation begins
+Ask these before recommending any layout or chart. A dashboard designed without a confirmed purpose tends to be rebuilt once people start using it, so this is the cheapest point to find out what it is for.
 
-**Not for:** charting library syntax (use Context7), or restyling within an already-approved design spec.
-
----
-
-## Phase 1 — Product Owner Interrogation
-
-Run these diagnostic questions before recommending any layout or chart type. Do not skip them under time pressure — a dashboard designed without purpose validation will be rebuilt.
-
-| Focus Area | Question to ask | Principle |
+| Focus | Question | Principle |
 |---|---|---|
-| **Purpose & Action** | What specific business decision will the user make immediately after viewing this? | Every screen needs one job |
-| **Ruthless Essentialism** | If the user had 10 seconds, what are the 3 metrics they must see? What happens if we remove the rest? | Less is more |
-| **Contextual Meaning** | How will the user know if [Metric X] is good or bad without a target, baseline, or benchmark? | Numbers need anchors |
-| **Geospatial Necessity** | Does knowing location fundamentally change the action taken — or is a map just visually interesting? | Justify every chart type |
-| **User Journey** | After the high-level view, what is the first question the user asks, and what filter answers it? | Design for the second question |
-| **Stakeholder Bias** | Who is the actual end-user? Are we trying to serve C-Suite and floor managers on the same screen? | One audience per dashboard |
+| Purpose and action | What decision will the user make right after viewing this? | Every screen has one job |
+| Essentials | If the user had 10 seconds, which three metrics must they see? What happens if we remove the rest? | Less is more |
+| Context | How will the user know whether this metric is good or bad without a target, baseline or benchmark? | Numbers need anchors |
+| Geography | Does location change the action taken, or is a map just interesting to look at? | Every chart justifies itself |
+| Next question | After the overview, what does the user ask first, and which filter or drill-down answers it? | Design for the second question |
+| Audience | Who actually uses this? Are we serving executives and floor managers on one screen? | One audience per dashboard |
+| Time | Which decision cycle (daily, weekly, monthly) does this support? | Granularity follows the decision, not the data |
 
----
+## Structure
 
-## Phase 2 — Design Engine
+- Put the single most important number top-left and let the rest read top-left to bottom-right, because that is the order people scan.
+- State the time window on every view, and match trend granularity to the decision cycle from Phase 1.
 
-Apply these rules strictly when recommending layouts, visual encodings, and hierarchy.
+## Scope control
 
-### Layout
-- **Z-Pattern:** Place the single most critical KPI (Big Number) top-left. Structure narrative top-left → bottom-right.
-- **Data-to-Ink Ratio:** Remove redundant grid lines, heavy borders, 3D effects, and decorative background colours. Generous margins reduce cognitive load.
+- **Push back on "one more KPI".** If a metric does not serve the dashboard's primary decision, say so plainly: "We don't need to present this." Each extra tile dilutes the ones that matter.
+- **One audience per dashboard.** When two roles need different answers, propose separate views or role-based tabs rather than one screen that serves neither well.
+- **Removal is a valid recommendation.** In a review, name what to cut before suggesting anything to add.
 
-### Visual Encoding
-- **No Double Encoding:** Never use two visual channels (colour + shape, size + colour) for the same variable unless explicitly required for accessibility.
-- **Text Hierarchy:** Vary font size and weight to pull the eye to key insights immediately. Follow brand typography if defined.
-
-### Guidance & Annotation
-- **Smart Labels:** Tooltips for secondary context; direct annotations for sudden spikes or drops. Limit permanent label density to prevent overcrowding.
-- **Time Anchoring:** Always specify the time window. Match trend-line granularity (daily / weekly / monthly) to the decision-making cycle, not data availability.
-
-### Scope Control
-- **Reject KPI Creep:** Actively push back on every "one more metric" request. If a metric does not map directly to the dashboard's primary objective, say: *"We don't need to present this."*
-
----
-
-## Chart Type Quick Reference
-
-| Data story | Recommended | Avoid |
-|---|---|---|
-| Change over time | Line chart | 3D bar, stacked area with multiple series |
-| Part-to-whole | Horizontal bar, treemap | Pie chart with >5 slices |
-| Comparison across categories | Bar chart (sorted by value) | Radar / spider chart |
-| Distribution | Histogram, box plot | 3D scatter |
-| Correlation | Scatter plot | Dual-axis bar |
-| Single key number | Big number + sparkline | Gauge / speedometer |
-| Geographic data (necessity confirmed) | Choropleth or dot map | Map when geography is decorative |
-
----
-
-## Common Mistakes
+## Common mistakes
 
 | Mistake | Fix |
 |---|---|
-| Building what the PO asked for without interrogating purpose | Run Phase 1 first — always |
-| Adding a map because it "looks impressive" | Ask the geospatial necessity question explicitly |
-| Showing a KPI with no target or baseline | Add goal line, historical average, or benchmark |
-| Dual-axis charts | Split into two separate charts |
-| Designing for multiple stakeholder roles on one screen | Build separate views or use role-based tabs |
-| Skipping the user journey question | Filters and drill-downs answer the second question — make sure they exist |
+| Building what the Product Owner asked for without testing its purpose | Run Phase 1 first; it is far cheaper than a rebuild |
+| Adding a map because it looks impressive | Ask the geography question explicitly |
+| A KPI with no target or baseline | Add a goal line, historical average or benchmark |
+| Dual-axis charts | Split into two charts |
+| Several roles served on one screen | Separate views or role-based tabs |
+| No path to the second question | Add the filter or drill-down that answers it |

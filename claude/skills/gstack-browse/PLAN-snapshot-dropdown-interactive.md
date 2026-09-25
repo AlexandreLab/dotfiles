@@ -1,1 +1,0 @@
-/Users/alexandrecanet/dotfiles/claude/skills/gstack/browse/PLAN-snapshot-dropdown-interactive.md

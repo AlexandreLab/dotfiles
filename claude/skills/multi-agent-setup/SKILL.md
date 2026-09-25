@@ -1,190 +1,122 @@
 ---
 name: multi-agent-setup
-description: Scaffold canonical AGENTS.md plus thin per-tool adapters (CLAUDE.md, GEMINI.md, Codex) so every AI agent reads one source of truth. Use for "set up multi-agent", "share rules across agents".
+description: Use when setting up a project so several AI agents (Claude Code, Gemini CLI, Codex, Cursor, Copilot) share one AGENTS.md, thin per-tool adapters and git hooks. Triggers on "set up multi-agent" or "share rules across agents".
 ---
 
 # Multi-Agent Setup
 
-> Establish a single source of truth for instructions, MCP servers, and playbooks across every AI coding tool the user runs.
+Give a project one source of truth for agent instructions, with thin per-tool adapters and hooks that enforce the mechanical rules for every agent.
 
----
+The global layer already exists: `~/agents-shared/AGENTS.md` holds the rules for every project, `~/.claude/CLAUDE.md` imports it, `~/agents-shared/mcp-servers.json` plus `sync-mcp.sh` write each tool's global MCP config. This skill sets up a single project on top of that.
 
-## 0. Mental Model
+## Layers
 
-Three layers, ordered by portability:
+1. **Portable:** `AGENTS.md`, `docs/playbooks/`. Every tool reads these, directly or through an adapter.
+2. **Adapters:** `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`. Each imports or points to `AGENTS.md` and adds only what that tool alone can use.
+3. **Enforcement:** `.githooks/` plus `tools/hooks/*.sh`. Git hooks fire for every agent and every human, so deterministic rules live here rather than in prose.
+4. **Tool-only:** Claude skills, `.claude/settings.json` hooks, slash commands. Not ported.
 
-1. **Portable layer** (shared across all tools): `AGENTS.md`, `.mcp.json`, `docs/playbooks/`
-2. **Adapter layer** (per-tool, thin): `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md` — each is a one-liner pointing to `AGENTS.md` plus tool-specific extras only.
-3. **Tool-only layer** (no portability): Claude `~/.claude/skills/`, hooks, slash commands. Don't try to port.
+Codex and Cursor read `AGENTS.md` natively and need no adapter.
 
-Edit the portable layer once → all agents pick it up. Adapter files exist only because some tools won't read `AGENTS.md` directly.
+## Steps
 
----
+Ask before overwriting any existing file, and show the diff when moving content.
 
-## 1. Global Layout (user's machine, all projects)
+### 1. Confirm scope
 
-```
-~/agents-shared/
-  AGENTS.md              # canonical engineering rules (was ~/.claude/CLAUDE.md)
-  mcp-servers.json       # canonical MCP server definitions
-  playbooks/             # skill content extracted to plain markdown
-  sync-mcp.sh            # regenerates per-tool MCP configs from mcp-servers.json
+Tell the user which files you will create or change in the current directory, and which already exist.
 
-~/.claude/CLAUDE.md      # one-liner: "See ~/agents-shared/AGENTS.md" + Claude-only bits
-~/.gemini/GEMINI.md      # symlink or @include of ~/agents-shared/AGENTS.md
-~/.codex/AGENTS.md       # symlink to ~/agents-shared/AGENTS.md
-```
+### 2. Write AGENTS.md
 
-**MCP configs** (each tool has its own format — `sync-mcp.sh` writes them all):
-- `~/.claude.json` (Claude Code)
-- `~/.gemini/settings.json` → `mcpServers`
-- `~/.codex/config.toml` → MCP section
-
----
-
-## 2. Per-Project Layout
-
-```
-<project>/
-  AGENTS.md              # canonical project rules — voice, conventions, architecture
-  CLAUDE.md              # one-liner pointing to AGENTS.md + Claude-only extras
-  GEMINI.md              # one-liner pointing to AGENTS.md
-  .mcp.json              # project-scoped MCP servers (Claude + Gemini both read this)
-  docs/playbooks/        # project-specific playbooks referenced from AGENTS.md
-```
-
-Tool-specific files (`.claude/settings.json`, hooks, skills) stay alongside but are never required reading for non-Claude agents.
-
----
-
-## 3. Scaffolding Protocol
-
-When invoked, run these steps in order. **Ask before overwriting any existing file.**
-
-### Step 1 — Confirm scope
-Ask: "Set up multi-agent layout in `<cwd>`? I'll create `AGENTS.md`, thin `CLAUDE.md` / `GEMINI.md`, and `.mcp.json`. Existing files will be flagged before changes."
-
-### Step 2 — Create `AGENTS.md`
-Use this template. Fill in placeholders from the project's existing CLAUDE.md / README.md if present.
+Fill the template from the existing CLAUDE.md, README and build files. Leave out sections the project has nothing to say about rather than keeping empty placeholders.
 
 ```markdown
-# AGENTS.md — <project name>
+# AGENTS.md: <project name>
 
-> Canonical instructions for any AI coding agent working in this repo.
-> Tool-specific files (CLAUDE.md, GEMINI.md, etc.) are thin adapters that defer to this file.
+Canonical instructions for any AI coding agent in this repo. Tool-specific
+files (CLAUDE.md, GEMINI.md) are thin adapters that defer to this one.
+Global rules in ~/agents-shared/AGENTS.md also apply.
 
 ## Project context
-- **What this is:** <one-line description>
-- **Stack:** <languages, frameworks, package manager>
-- **Run/test:** <how to start the dev server, run tests>
-- **Production branch / deploy target:** <e.g. master on Vercel — auto-deploys>
+- What this is: <one line>
+- Stack: <languages, frameworks, package manager>
+- Run and test: <dev server, test command, quality gate script>
+- Production branch and deploy target: <e.g. main on Vercel, auto-deploys>
 
-## Engineering rules
-- Inherit global rules from `~/agents-shared/AGENTS.md`.
-- <project-specific overrides go here>
-
-## Branch & PR discipline
-- <branching strategy, PR-only flow, auto-merge convention>
-- ALWAYS ask for user confirmation before `gh pr create`.
+## Branch and PR discipline
+- <branching strategy, PR-only flow>
 
 ## CI parity before push
-Local checks must mirror the CI matrix exactly. Lint failures on test/e2e directories, coverage thresholds, and build-time constraints often only surface in CI — costing follow-up commits. Run the full local equivalent before pushing.
+Local checks mirror the CI matrix: same steps, same flags, same order.
+Run <tools/quality_gate.sh> before pushing.
 
 ## Sub-agent scope
-- When delegating, give the sub-agent an explicit allowlist of files it may modify.
-- Sub-agents must not edit `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `CHANGELOG.md`, or other project-management files unless explicitly tasked.
-- The primary session retains exclusive ownership of any file it has already committed in the current session — sub-agents should return diffs for the primary to apply.
+- Give each sub-agent an explicit list of files it may modify.
+- Sub-agents leave TODOS.md, CLAUDE.md, AGENTS.md and CHANGELOG.md alone
+  unless the task is about them.
 
-## Locale & style
-- <British/American English, dash conventions, voice — only what the project actually mandates>
-
-## Voice & conventions
-- See `docs/brand.md` / `.agent/conventions.md` if applicable.
+## Locale and style
+- <spelling variant, punctuation, voice: only what the project mandates>
 
 ## Playbooks
-- `docs/playbooks/<name>.md` — <when to use it>
+- docs/playbooks/<name>.md: <when to use it>
 
 ## Out of scope for agents
-- <files or directories agents should never touch>
+- <files or directories agents should not touch>
 ```
 
-**Sourcing tips when populating the template:**
-- If the project has been running for a while, check the user's `~/.claude/usage-data/` insights or `gotchas.md` for recurring friction patterns to encode as rules.
-- Sub-agent scope, CI parity, and sibling-grep are common additions worth checking even when the user hasn't mentioned them — they prevent the most common rework loops.
+Worth checking even if the user didn't mention them: sub-agent scope, CI parity, and the grep-for-siblings rule. They prevent the most common rework loops. The project's history (repeated review comments, CI fixes that followed local passes) is the best source for project-specific rules.
 
-### Step 3 — Create thin adapter files
+### 3. Write the adapters
 
-`CLAUDE.md`:
+`CLAUDE.md`. The `@AGENTS.md` line must stand on its own line: Claude Code only loads a file into context through an `@` import, and a plain "see AGENTS.md" link is never read.
+
 ```markdown
 # Claude Instructions
 
-See [AGENTS.md](AGENTS.md) for canonical rules.
+@AGENTS.md
 
 ## Claude-only extras
-<skills to use, slash commands, hooks notes — only what other tools can't honor>
+<skills, Claude Code hooks, slash commands: only what other tools can't use>
 ```
 
-`GEMINI.md`:
+`GEMINI.md`. Gemini CLI also expands `@file` imports:
+
 ```markdown
 # Gemini Instructions
 
-See [AGENTS.md](AGENTS.md) for canonical rules.
+@AGENTS.md
 ```
 
-`.github/copilot-instructions.md` (only if the project uses Copilot):
-```markdown
-See [AGENTS.md](../AGENTS.md) for canonical rules.
-```
+`.github/copilot-instructions.md`, only if the project uses Copilot: a one-line pointer to `AGENTS.md`.
 
-### Step 4 — Create `.mcp.json`
-Start with an empty servers list. Populate from `~/agents-shared/mcp-servers.json` if the user wants project-scoped copies.
+### 4. Project MCP servers
 
-```json
-{
-  "mcpServers": {}
-}
-```
+Only if the project needs its own servers. Claude Code reads `.mcp.json` at the repo root. Gemini CLI does not: it reads `mcpServers` from `.gemini/settings.json`. Codex reads `[mcp_servers.*]` from `~/.codex/config.toml`. Keep one definition and generate the others, as `~/agents-shared/sync-mcp.sh` does globally, rather than hand-editing three files.
 
-### Step 5 — Migration from existing CLAUDE.md
-If `CLAUDE.md` already has substantive content:
-1. Move tool-agnostic rules → `AGENTS.md`.
-2. Keep only Claude-specific items (skill list, hooks, slash command notes) in `CLAUDE.md`.
-3. Replace the body with: "See [AGENTS.md](AGENTS.md)" + the Claude-only section.
+### 5. Migrate an existing CLAUDE.md
 
-Never silently delete content — show the diff and confirm.
+Move tool-agnostic rules into `AGENTS.md`, keep only Claude-specific items in `CLAUDE.md`, and put `@AGENTS.md` at the top. Show the diff and confirm; don't silently drop content.
 
-### Step 6 — Report
-List what was created/changed and what the user should do next:
-- Add MCP servers to `.mcp.json` if needed.
-- If using Codex/Cursor, drop equivalent adapter files.
-- Verify `AGENTS.md` reads correctly by running each agent against a small task.
+### 6. Scaffold git hooks for deterministic rules
 
-### Step 7 — (Optional) Offer CI-parity scaffolding
-If the project has `.github/workflows/` and the user mentions CI friction (or insights show recurring local-vs-CI failures), offer separately:
-1. A `scripts/ci-local.sh` that mirrors every CI check in the same order with the same flags.
-2. A `Stop` hook in `.claude/settings.json` that runs it before declaring a task done.
-3. A line in `AGENTS.md` requiring it before push.
+For each rule that is a mechanical check (quality gate before push, no commits to `main`, banned commands or package managers, formatting, secrets), add a hook instead of relying on agents to remember it:
 
-Do NOT scaffold this automatically — it's a separate concern from multi-agent setup. Mention it as a follow-up.
+- Hook entry points in `.githooks/` (`pre-commit`, `pre-push`), each a short call into `tools/hooks/<check>.sh` where the logic lives.
+- Activate with `git config core.hooksPath .githooks`, and add that command to the README or setup script, since git config is not committed.
+- Every blocking hook prints what to do instead, and honours an env-var escape hatch (for example `ALLOW_MAIN=1`), documented in `AGENTS.md`.
+- For checks git can't see (tool calls, file edits as they happen), add a Claude Code hook in `.claude/settings.json` that calls the same script.
 
----
+If the project already uses a hook manager (husky, lefthook, pre-commit), add the checks there instead of creating a second mechanism.
 
-## 4. Anti-Patterns
+### 7. Report
 
-- **Duplicating rules across CLAUDE.md and GEMINI.md.** If a rule is in two adapter files, it belongs in `AGENTS.md`.
-- **Putting Claude-only features in `AGENTS.md`.** Slash commands, hooks, skill names — these confuse non-Claude agents. Keep them in `CLAUDE.md` only.
-- **Hand-editing per-tool MCP configs.** Always edit `mcp-servers.json` and re-run the sync script.
-- **Creating a SETUP.md instead of AGENTS.md.** `AGENTS.md` is the convention non-Claude tools already look for. Don't invent a new filename.
+List what was created or changed, the hooks now active, and what the user still needs to do: add project MCP servers if any, run `git config core.hooksPath .githooks` in other clones, and try each agent on a small task to confirm it picks up `AGENTS.md`.
 
----
+## Pitfalls
 
-## 5. Quick Reference
+- **A rule in two adapters** belongs in `AGENTS.md`.
+- **Claude-only features in AGENTS.md** (skill names, slash commands) confuse other agents; keep them in `CLAUDE.md`.
+- **A rule restated in several places, or often broken,** is a hook candidate.
+- **A new filename** such as `SETUP.md`: other tools look for `AGENTS.md`, so use that.
 
-| Need | File |
-|---|---|
-| Engineering rules every agent must follow | `AGENTS.md` |
-| Claude-only behavior (skills, hooks) | `CLAUDE.md` |
-| Gemini-only tweaks | `GEMINI.md` |
-| Shared MCP servers across projects | `~/agents-shared/mcp-servers.json` |
-| Project-scoped MCP servers | `.mcp.json` |
-| Reusable playbooks referenced from AGENTS.md | `docs/playbooks/<name>.md` |
