@@ -24,11 +24,13 @@ LINKS=(
   "workspace-efficiency-guide.md:workspace-efficiency-guide.md"
   "commands:commands"
   "skills:skills"
+  "tools/statusline.py:tools/statusline.py"
 )
 
 for entry in "${LINKS[@]}"; do
   src="$CLAUDE_SRC/${entry%%:*}"
   dst="$CLAUDE_DIR/${entry##*:}"
+  mkdir -p "$(dirname "$dst")"
 
   if [ ! -e "$src" ]; then
     echo "  ⚠ skipping $src (not found in dotfiles)"

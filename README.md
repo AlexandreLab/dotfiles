@@ -7,7 +7,8 @@ Personal configuration for [Claude Code](https://claude.ai/code).
 ```
 claude/
 ├── CLAUDE.md                      # Global rules applied to every project
-├── settings.json                  # Claude Code settings (plugins, hooks, effort level)
+├── settings.json                  # Claude Code settings (plugins, hooks, effort level, status line)
+├── tools/statusline.py            # Status line: model, effort, context %, 5h limit, folder, branch
 ├── workspace-efficiency-guide.md  # How to set up any workspace for low token usage
 ├── commands/                      # Slash command shortcuts (/brainstorm, /write-plan, etc.)
 └── skills/                        # Reusable skill prompts (gstack/ and ostack/ excluded — too large)
