@@ -75,7 +75,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cp ~/.claude/settings.json ~/dotfiles/claude/settings.json"
+            "command": "cp ~/.claude/settings.json ~/dotfiles/claude/settings.json && mkdir -p ~/dotfiles/claude/tools/hooks && cp -p ~/.claude/tools/hooks/*.sh ~/dotfiles/claude/tools/hooks/"
           }
         ]
       },
