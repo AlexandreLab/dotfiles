@@ -25,7 +25,16 @@ cd ~/dotfiles && ./install.sh && ./install-skills.sh
 [SKILLS.md](SKILLS.md) lists every skill and plugin with its source, and is written so an agent can
 follow it on a fresh machine.
 
-The script creates symlinks from `~/.claude/` into this repo. Any edits made through
+On a machine that already has the repo, pull and re-run both scripts. They skip what is already
+in place, and they add anything new, such as skills added since the last install:
+
+```bash
+cd ~/dotfiles && git pull && ./install.sh && ./install-skills.sh
+```
+
+Then start a new Claude Code session so it picks up the changes.
+
+`install.sh` creates symlinks from `~/.claude/` into this repo. Any edits made through
 Claude Code (new skills, CLAUDE.md updates) automatically appear as changes here.
 
 ## Keeping it up to date
@@ -39,6 +48,9 @@ git add -A
 git commit -m "chore: sync claude config"
 git push
 ```
+
+A new skill of your own also needs its name added to the allowlist in `.gitignore`
+(`!claude/skills/<name>/`), or git ignores it. Third-party skills go in `install-skills.sh` instead.
 
 ## Sharing with a collaborator
 
