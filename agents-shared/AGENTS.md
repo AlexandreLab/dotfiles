@@ -98,17 +98,44 @@ Priority order when principles conflict: **Maintainability > Security > Reliabil
 
 ---
 
-## Subagent / sub-task model selection
+## Parallel agents, model and effort
 
-When dispatching subagents or sub-tasks, choose model by task complexity:
+### Model and effort by task
 
-| Task type | Model |
-|---|---|
-| Mechanical: isolated function, clear spec, 1–2 files | cheapest tier (Haiku / Flash) |
-| Integration: multi-file coordination, pattern matching, debugging | mid tier (Sonnet / Pro) |
-| Architecture, design decisions, review | top tier (Opus / Ultra) |
+Pick both the model and the reasoning effort from the task, for in-process subagents and for agents started in herdr panes alike:
 
-When in doubt: if the plan is fully specified and the task touches ≤2 files → cheapest. Multi-file judgment → mid. Review or ADR → top.
+| Task type | Model | Effort |
+|---|---|---|
+| Mechanical: isolated function, clear spec, 1–2 files, renames, log triage | cheapest tier (Haiku / Flash) | low |
+| Integration: multi-file coordination, pattern matching, debugging | mid tier (Sonnet / Pro) | medium |
+| Architecture, design decisions, review, ADRs | top tier (Opus / Ultra) | high |
+| Security, billing, auth or migration review; a bug two attempts have not found | top tier | xhigh or max |
+
+When in doubt: if the plan is fully specified and the task touches ≤2 files → cheapest. Multi-file judgment → mid. Review or ADR → top. Raise the effort rather than the tier when the task is small but subtle; lower it when the model is right but the work is rote.
+
+How each CLI takes them (pass native flags after `--` in `herdr agent start`):
+
+| Agent | Model | Effort |
+|---|---|---|
+| Claude Code | `--model haiku\|sonnet\|opus` | `--effort low\|medium\|high\|xhigh\|max` |
+| Codex | `-m <model>` | `-c model_reasoning_effort="low\|medium\|high"` |
+| Gemini CLI | `-m <model>` | no flag; choose by model |
+
+### When to parallelise
+
+Split work across agents when the pieces are independent: no shared files, and no step that needs another's output. Good candidates: separate work packages of a written plan, a review running beside implementation, a long test or build run, research across unrelated areas. Do not split a task whose parts edit the same files, or one small enough that briefing an agent costs more than doing it.
+
+- **In-process subagent** (the Agent tool, or your CLI's equivalent) for short, self-contained work whose result you only need as a conclusion: searches, extraction, a focused review.
+- **herdr pane** (load the `herdr` skill) for work that is long-running, needs its own branch, should be visible to the user, or suits a different agent kind (for example a Codex reviewer beside a Claude implementer). This standing rule is the user's go-ahead to use herdr for this; it only applies when `HERDR_ENV=1`.
+
+### Running agents in herdr
+
+- One agent, one branch, one worktree (see Multi-terminal above). An agent that only reads can share the caller's directory; one that edits gets its own worktree under `.worktrees/<branch>`.
+- Open a sibling pane with `--no-focus`, start the agent with a short unique name (`impl-auth`, `reviewer`), and set model and effort from the table above.
+- Give each agent a self-contained prompt: the goal, an explicit allowlist of files it may change, the checks to run before it reports, and what to return. It has none of your conversation.
+- Wait with `herdr agent prompt ... --wait` or `herdr agent wait`, then read its output. If it is `blocked` on an approval, read the dialog and ask the user; never answer it blindly.
+- Keep ownership clear: the primary session merges results, runs the quality gate and commits, unless a lane was given its own branch and PR.
+- Close only the panes and worktrees you created, once their work is merged or discarded.
 
 ---
 
