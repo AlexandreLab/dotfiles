@@ -45,6 +45,7 @@ A skill folder without a `SKILL.md` at its top level is not loaded. A symlink th
 | brain-ingest | Add a source document to a project's brain wiki |
 | brainstorming | Shape a new user-facing feature or unclear requirements |
 | brand-story-architect | Build or audit a B2C brand story |
+| business-coach | Questions-first second opinion on a business idea, page, plan, offer or decision |
 | creating-devcontainer | Firewalled dev container for running an agent unattended |
 | data-visualisation-expert | Question dashboard and KPI requirements before building |
 | design-critic-loop | Iterate a UI with an isolated critic until it scores well |

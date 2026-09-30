@@ -7,6 +7,7 @@ claude/skills/*
 !claude/skills/brain-ingest/
 !claude/skills/brainstorming/
 !claude/skills/brand-story-architect/
+!claude/skills/business-coach/
 !claude/skills/creating-devcontainer/
 !claude/skills/data-visualisation-expert/
 !claude/skills/design-critic-loop/
