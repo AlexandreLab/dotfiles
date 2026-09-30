@@ -139,6 +139,23 @@ Split work across agents when the pieces are independent: no shared files, and n
 
 ---
 
+## Spotting a use for Jev (TypeSafe)
+
+Jev, TypeSafe's System One model, turns text and application state into typed answers with probabilities. The user wants to hear when a step in an algorithm or method being designed could use it, so raise it as a question rather than staying silent or wiring it in.
+
+**Ask when a step needs judgement that code can't express cleanly**, such as:
+- classifying or labelling free text with keyword lists, regexes or hand-written heuristics;
+- choosing the right value, span or candidate from several that code has already found;
+- ranking or filtering by relevance, or deciding whether a piece of evidence supports a claim;
+- a threshold or rule tuned by eye because the real criterion is semantic;
+- an LLM prompt-and-parse call whose output is really a choice, a yes/no or a score.
+
+**Don't ask** about exact rules, calculations, lookups or anything a test can pin down exactly: those stay in code.
+
+**How to ask:** at the design point, before the code is written, put one question to the user (in Claude Code, the AskUserQuestion tool). Name the step, the question Jev would answer, what stays in code, and the trade-off: cost and latency per call, a probability to set a threshold on, and a dependency on the TypeSafe API. Offer three answers: explore it now (load the `typesafe-ai` skill and read the live docs), keep it in code, or note it for later. Don't wire Jev in without a yes, and don't ask again about a step the user has already declined this session.
+
+---
+
 ## Writing style (prose & content)
 
 Applies to all human-facing prose the agent writes: blog posts, social media posts, marketing copy, emails, newsletters, documentation, and READMEs. Not code identifiers.
