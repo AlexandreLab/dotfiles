@@ -79,7 +79,7 @@ If `uv` is not installed in the environment, surface that as a blocker rather th
 
 ## Scope discipline
 
-**Never touch `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `CHANGELOG.md`, or other project-management files unless explicitly asked.** Keep commits scoped to the task at hand. If you notice something worth logging, mention it in chat rather than writing it yourself.
+**Never touch `TODOS.md`, `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `CHANGELOG.md`, or other project-management files unless explicitly asked.** A project's own `AGENTS.md` or `CLAUDE.md` counts as asking: if it says to log meaningful work in `CHANGELOG.md` (or keep another such file current), do it in the same PR as the work rather than offering it afterwards. Otherwise keep commits scoped to the task at hand, and if you notice something worth logging, mention it in chat rather than writing it yourself.
 
 **Verify branch before every commit.** Run `git branch --show-current` before committing. If on the wrong branch, stop and ask rather than committing and cherry-picking later.
 
