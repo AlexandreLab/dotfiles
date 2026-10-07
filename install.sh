@@ -25,6 +25,7 @@ LINKS=(
   "commands:commands"
   "skills:skills"
   "tools/statusline.py:tools/statusline.py"
+  "tools/hooks:tools/hooks"
 )
 
 for entry in "${LINKS[@]}"; do
@@ -53,11 +54,13 @@ done
 
 echo ""
 
-# Register the launchd auto-sync job
+# Register the launchd auto-sync job (skip on secondary machines with NO_SYNC_JOB=1)
 PLIST_SRC="$DOTFILES_DIR/com.alexandrecanet.dotfiles-sync.plist"
 PLIST_DST="$HOME/Library/LaunchAgents/com.alexandrecanet.dotfiles-sync.plist"
 
-if [ -f "$PLIST_SRC" ]; then
+if [ "${NO_SYNC_JOB:-}" = "1" ]; then
+  echo "· launchd sync job skipped (NO_SYNC_JOB=1)"
+elif [ -f "$PLIST_SRC" ]; then
   cp "$PLIST_SRC" "$PLIST_DST"
   launchctl load "$PLIST_DST" 2>/dev/null && \
     echo "✓ launchd sync job registered (runs daily at 18:00)" || \

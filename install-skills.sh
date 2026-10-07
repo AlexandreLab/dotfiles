@@ -34,7 +34,7 @@ fi
 GITHUB_SKILLS=(
   "herdrdev/herdr:herdr"
   "stripe/ai:stripe-best-practices"
-  "vercel-labs/next-skills:next-best-practices"
+  "iannuttall/seo:seo"
 )
 for entry in "${GITHUB_SKILLS[@]}"; do
   repo="${entry%%:*}"; skill="${entry##*:}"
@@ -46,13 +46,13 @@ for entry in "${GITHUB_SKILLS[@]}"; do
   fi
 done
 
-# 3. SEO – the skill ships inside the `seo` npm CLI, not on GitHub.
-step "seo (npm package 'seo')"
+# 3. SEO – the skill comes from step 2. The `seo` npm CLI is still needed for its MCP server.
+#    Not `seo skill install`: it installs into the current directory with a relative link.
+step "seo CLI and MCP (npm package 'seo')"
 if ! command -v seo >/dev/null 2>&1; then
   npm i -g seo || failed+=("seo cli")
 fi
 if command -v seo >/dev/null 2>&1; then
-  [ -e "$SKILLS_DIR/seo/SKILL.md" ] && echo "  ✓ skill already installed" || seo skill install || failed+=("seo skill")
   seo mcp install --claude-code || failed+=("seo mcp")
 fi
 

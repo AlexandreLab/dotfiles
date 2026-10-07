@@ -6,7 +6,7 @@ This file is written for an AI agent (or a person) setting up Claude Code on a n
 
 - `~/.claude/skills` is a symlink to `claude/skills/` in this repo (made by `install.sh`).
 - **Own skills** are stored in this repo as real folders under `claude/skills/`. They are not published anywhere else, so this repo is their only source. `.gitignore` allowlists them by name.
-- **Everything else** in `claude/skills/` is git-ignored and reinstalled by `install-skills.sh`: gstack, skills from GitHub, the SEO skill from npm.
+- **Everything else** in `claude/skills/` is git-ignored and reinstalled by `install-skills.sh`: gstack and skills from GitHub (the SEO skill among them).
 - **Plugins** (Supabase, Vercel, frontend-design and others) come from plugin marketplaces. `claude/settings.json` records which are enabled; `install-skills.sh` installs them.
 - **claude.ai skills and plugins** (`anthropic-skills:*`, `engineering:*`, `marketing:*`, `product-management:*`) sync from the Anthropic account on login. Nothing to install; they land in `claude/skills/synced/` and `~/.claude/plugins/synced/`, both ignored.
 
@@ -81,19 +81,20 @@ cd ~/.claude/skills/gstack && ./setup --prefix
 |---|---|---|
 | herdr | herdrdev/herdr | `npx -y skills add herdrdev/herdr --skill herdr -g -a claude-code -y --copy` |
 | stripe-best-practices | stripe/ai | `npx -y skills add stripe/ai --skill stripe-best-practices -g -a claude-code -y --copy` |
-| next-best-practices | vercel-labs/next-skills | `npx -y skills add vercel-labs/next-skills --skill next-best-practices -g -a claude-code -y --copy` (gosip's CLAUDE.md names it) |
+| seo | iannuttall/seo | `npx -y skills add iannuttall/seo --skill seo -g -a claude-code -y --copy` |
 
 Always pass `--copy`. Without it the CLI writes a relative symlink from `~/.claude/skills`, but that folder is itself a symlink into this repo, so the link resolves to the wrong place and the skill never loads.
 
-### SEO skill (npm package `seo`, not on GitHub)
+`next-best-practices` (vercel-labs/next-skills) is gone: Vercel retired it in September 2026. Next.js 16.3+ ships the same guidance in `node_modules/next/dist/docs/` and the `AGENTS.md` block `next dev` writes. Projects whose CLAUDE.md still names it should point at the bundled docs instead.
+
+### SEO CLI and MCP (npm package `seo`)
 
 ```bash
 npm i -g seo
-seo skill install
 seo mcp install --claude-code
 ```
 
-The skill ships inside the CLI and updates with `npm i -g seo@latest` followed by `seo skill install`. Local edits to it are overwritten on update, so leave it as shipped.
+Do not use `seo skill install`: it installs into the current directory with a relative symlink, which breaks for the same reason as above. Install the skill from the table instead. Local edits to it are overwritten on update, so leave it as shipped.
 
 ### Plugins
 

@@ -21,6 +21,9 @@ git clone https://github.com/AlexandreLab/dotfiles.git ~/dotfiles
 cd ~/dotfiles && ./install.sh && ./install-skills.sh
 ```
 
+On a second machine that should not auto-push, run `NO_SYNC_JOB=1 ./install.sh` to skip the daily
+launchd sync job.
+
 `install-skills.sh` installs gstack, skills from GitHub, the SEO skill and the Claude Code plugins.
 [SKILLS.md](SKILLS.md) lists every skill and plugin with its source, and is written so an agent can
 follow it on a fresh machine.

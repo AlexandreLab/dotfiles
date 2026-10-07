@@ -40,6 +40,9 @@ claude/mcp-needs-auth-cache.json
 claude/vercel-plugin-device-id
 claude/vercel-plugin-telemetry-preference
 
+# Backups gstack's setup writes when it repoints hooks in settings.json
+claude/settings.json.bak*
+
 # macOS
 .DS_Store
 .sync.log
