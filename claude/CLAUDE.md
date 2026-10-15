@@ -21,6 +21,8 @@ When a document has repeated parallel items (emails in a flow, sections, table r
 
 Follow the em dash rule in AGENTS.md in everything you write, including messages to the user.
 
+When the user asks for copy to paste somewhere, hand over the finished text for every item: links filled in, no `[link]` placeholders, and no "(keep your existing list)" notes. Placeholders send the user back to do the assembly themselves, and an owner called that lazy.
+
 ## Hooks, not reminders
 
 If a required behaviour is mechanical (formatting on edit, branch and push guards, the quality gate before push, banned commands such as `pip` in a uv-only repo), enforce it with a hook rather than a written instruction. Instructions an agent has to remember eventually get missed; a hook fires every time. Written rules are for judgment calls.
