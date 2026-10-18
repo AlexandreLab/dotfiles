@@ -78,14 +78,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cp ~/.claude/settings.json ~/dotfiles/claude/settings.json && mkdir -p ~/dotfiles/claude/tools/hooks && cp -p ~/.claude/tools/hooks/*.sh ~/dotfiles/claude/tools/hooks/"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
