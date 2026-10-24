@@ -89,7 +89,8 @@
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "gstack-timeline-stop"
       }
     ],
     "UserPromptSubmit": [
@@ -121,7 +122,8 @@
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/question-preference-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "plan-tune-cathedral"
       }
     ],
     "SessionStart": [
@@ -145,7 +147,8 @@
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/question-log-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "plan-tune-cathedral"
       },
       {
         "matcher": "(AskUserQuestion|mcp__.*__AskUserQuestion)",
@@ -155,7 +158,8 @@
             "command": "/Users/alexandrecanet/.claude/skills/gstack/hosts/claude/hooks/auq-error-fallback-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "auq-error-fallback"
       }
     ]
   },
@@ -212,7 +216,7 @@
       "effortLevel": "medium"
     },
     "claude-opus-5-5": {
-      "effortLevel": "medium"
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
