@@ -23,6 +23,10 @@ Follow the em dash rule in AGENTS.md in everything you write, including messages
 
 When the user asks for copy to paste somewhere, hand over the finished text for every item: links filled in, no `[link]` placeholders, and no "(keep your existing list)" notes. Placeholders send the user back to do the assembly themselves, and an owner called that lazy.
 
+## Git state before acting
+
+Run `git fetch` before judging what is or isn't on `origin/main`, and check merged PRs too (`gh pr list --state merged --head <branch>`), not only open ones. Other sessions merge while you work: a stale `origin/main` once made a branch look unmerged and led to a duplicate PR for work already merged an hour earlier.
+
 ## Hooks, not reminders
 
 If a required behaviour is mechanical (formatting on edit, branch and push guards, the quality gate before push, banned commands such as `pip` in a uv-only repo), enforce it with a hook rather than a written instruction. Instructions an agent has to remember eventually get missed; a hook fires every time. Written rules are for judgment calls.
