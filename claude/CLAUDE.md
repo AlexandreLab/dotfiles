@@ -27,6 +27,10 @@ When the user asks for copy to paste somewhere, hand over the finished text for 
 
 Run `git fetch` before judging what is or isn't on `origin/main`, and check merged PRs too (`gh pr list --state merged --head <branch>`), not only open ones. Other sessions merge while you work: a stale `origin/main` once made a branch look unmerged and led to a duplicate PR for work already merged an hour earlier.
 
+## When a website blocks the browser
+
+If a site blocks automated browsing (Google's "unusual traffic" page, a CAPTCHA, a Cloudflare check, a sign-in wall), don't stop at "I was blocked" or fall back to a weaker source. Open a visible window on the blocked page (gstack browse: `$B handoff "<what to click>"`), ask the user to clear the check, then `$B resume` and carry on, slowly enough not to trip it again. Never solve the check yourself. On 2026-11-03 Google blocked headless searches after one query; the owner cleared it in a handoff window and asked for this to be the default from now on.
+
 ## Hooks, not reminders
 
 If a required behaviour is mechanical (formatting on edit, branch and push guards, the quality gate before push, banned commands such as `pip` in a uv-only repo), enforce it with a hook rather than a written instruction. Instructions an agent has to remember eventually get missed; a hook fires every time. Written rules are for judgment calls.
