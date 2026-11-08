@@ -65,4 +65,4 @@ AGENTS.md sets the ladder. In Claude Code, pass the alias as the Agent tool's `m
 | Integration and debugging across several files | `sonnet` |
 | Architecture, design decisions, review | `opus` |
 
-The Agent tool takes no effort setting, so an in-process subagent runs at the session's effort. When effort matters (a rote job that should run at `low`, a hard review that needs `xhigh`), start it in a herdr pane with `claude --model <alias> --effort <level>` instead, following "Parallel agents, model and effort" in AGENTS.md.
+The Agent tool takes no effort setting, so an in-process subagent runs at the session's effort. When effort matters (a rote job that should run at `low`, a hard review that needs `xhigh`), start it with `hc run --bg --name <name> claude --model <alias> --effort <level> "<task>"` instead, following "Running helper agents with hc" in AGENTS.md.
