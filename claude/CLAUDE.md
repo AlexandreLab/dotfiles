@@ -29,7 +29,7 @@ Run `git fetch` before judging what is or isn't on `origin/main`, and check merg
 
 ## When a website blocks the browser
 
-If a site blocks automated browsing (Google's "unusual traffic" page, a CAPTCHA, a Cloudflare check, a sign-in wall), don't stop at "I was blocked" or fall back to a weaker source. Open a visible window on the blocked page (gstack browse: `$B handoff "<what to click>"`), ask the user to clear the check, then `$B resume` and carry on, slowly enough not to trip it again. Never solve the check yourself. On 2026-11-03 Google blocked headless searches after one query; the owner cleared it in a handoff window and asked for this to be the default from now on.
+If a site blocks automated browsing (Google's "unusual traffic" page, a CAPTCHA, a Cloudflare check, a sign-in wall), don't stop at "I was blocked" or fall back to a weaker source. Open a visible window on the blocked page (gstack browse: `$B handoff "<what to click>"`), ask the user to clear the check, then `$B resume` and carry on, slowly enough not to trip it again. Never solve the check yourself. On 2026-11-03 Google blocked headless searches after one query; the owner cleared it in a handoff window and asked for this to be the default from now on. A 403 from WebFetch counts as a block too. A research subagent can't hand off, so tell it to list blocked URLs in its report, then open them yourself the same session rather than asking the user to read them: on 2026-11-10 Sendcloud's help centre returned 403 to a subagent, and handing the articles back to the owner earned a correction.
 
 ## Hooks, not reminders
 
