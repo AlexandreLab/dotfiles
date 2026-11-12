@@ -19,12 +19,12 @@ Before opening or approving a PR on any project, run a paranoid staff-engineer r
 
 **Never poll CI in-chat.** Do not loop on `gh pr checks` or `gh run watch` interactively: it drains quota and hits rate limits.
 
-**Auto-merge is mandatory when creating PRs.** After every `gh pr create`, immediately run `gh pr merge <number> --auto --squash` in the same step, not as a follow-up. The full sequence is always:
+**Auto-merge by default when creating PRs, unless the project says otherwise.** After `gh pr create`, run `gh pr merge <number> --auto --squash` in the same step, not as a follow-up:
 ```bash
 gh pr create --title "..." --body "..."  # capture the PR number from output
 gh pr merge <number> --auto --squash      # set auto-merge immediately
 ```
-GitHub then merges when checks pass, so no further monitoring is needed.
+GitHub then merges when checks pass, so no further monitoring is needed. Skip this step when the project's AGENTS.md or CLAUDE.md, a memory, or a project hook says PRs are merged by hand, for example a private repo on GitHub's free plan, where auto-merge is not available, or a project whose owner approves every merge. The project's rule wins; leave the PR open and tell the owner.
 
 ---
 
