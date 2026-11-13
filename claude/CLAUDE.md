@@ -14,6 +14,7 @@ Load a skill when the task in front of you matches it, not on the chance that it
 - Stripe work (payments, subscriptions, webhooks): read `stripe-best-practices` first.
 - Architecture or trade-off decisions, and when the user asks for a 4-gate review: use `applying-engineering-standards`.
 - A new project that several agents will work on: run `multi-agent-setup`.
+- Any new project: run `creating-devcontainer` before installing dependencies (see "Dev container from the start" in AGENTS.md).
 
 ## Writing documents
 
@@ -43,7 +44,7 @@ If a required behaviour is mechanical (formatting on edit, branch and push guard
 
 ## Learning from corrections
 
-When the user corrects something you did wrong, add a short lesson to that project's CLAUDE.md in the same turn, and tell the user in one line what you added. This is standing permission, and an exception to the AGENTS.md rule against editing CLAUDE.md unasked. Write the lesson as a rule with its reason, next to related rules, and update an existing entry rather than adding a near-duplicate. Lessons that apply to every project go in this file instead.
+When the user corrects something you did wrong, add a short lesson to that project's CLAUDE.md in the same turn, and tell the user in one line what you added. This is standing permission, and an exception to the AGENTS.md rule against editing CLAUDE.md unasked. Write the lesson as a rule with its reason, next to related rules, and update an existing entry rather than adding a near-duplicate. Lessons that apply to every project go in this file instead. Inside a dev container this file is read-only (see "Global files are read-only in a dev container" in AGENTS.md): give the lesson in the chat instead.
 
 ## Keeping cost down
 

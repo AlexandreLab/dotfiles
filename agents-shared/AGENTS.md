@@ -61,6 +61,21 @@ Shared files (`.env`, local SQLite DBs, generated artefacts at the repo root) ar
 
 ---
 
+## Dev container from the start
+
+**A new project gets a dev container (`.devcontainer/`) in its first commit, before any dependency is installed.** Dependencies are then installed, run and tested inside it, never on the Mac. A malicious package runs its code at install (install scripts) and again whenever the app or tests run; on the host it can read `~/.ssh`, cloud and GitHub tokens, the keychain and browser data, and inside the container it sees only the project. Owner request, 2026-11-13.
+
+- Default-deny outbound firewall with a short allowlist (package registry, the agent's API, GitHub, and each API the project calls).
+- Install dependencies after the firewall is up, not in a step that runs before it.
+- Keep the container's dependency folder (`node_modules`, `.venv`) in a named volume, so host and container binaries never overwrite each other.
+- Mount the repo at the same path as on the host, so git worktrees under `.worktrees/` still resolve.
+- Pass secrets at run time, never in the image, and use test-mode keys in the project's env file: the container can read it.
+- **Global files are read-only in a dev container.** The global `CLAUDE.md`, this file and the skills folder may be mounted into the container, but only read-only. Agents on the host trust these files, so a writable mount would let a compromised package plant instructions that host agents then carry out with full access. When you work inside a container and want to change one of them (a lesson, a rule, a skill fix), don't try to work around the read-only mount: write the exact change in the chat (the file, the section and the finished text) and the owner applies it on the host. The project's own `CLAUDE.md` and `AGENTS.md` stay writable as usual.
+
+For an existing project without one, ask the owner before adding one rather than adding it unasked. Presson Swap's `.devcontainer/` is a worked example (local Supabase reached through `host.docker.internal`, Playwright browsers baked into the image).
+
+---
+
 ## Python tooling
 
 **Always use `uv` for Python work.** Never call `pip`, `pip3`, `python -m pip`, or `virtualenv` directly.

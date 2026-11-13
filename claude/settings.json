@@ -171,7 +171,9 @@
     "frontend-design@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
     "watch@claude-video": true,
-    "typesafe@typesafe-ai": true
+    "typesafe@typesafe-ai": true,
+    "claude-code-setup@anthropic-plugin-directory": true,
+    "egm@egm": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -196,6 +198,12 @@
       "source": {
         "source": "github",
         "repo": "typesafe-ai/skills"
+      }
+    },
+    "egm": {
+      "source": {
+        "source": "github",
+        "repo": "google/elephant-goldfish-model"
       }
     }
   },
